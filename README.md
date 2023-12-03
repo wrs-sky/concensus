@@ -12,6 +12,15 @@ For more information on this library see our [wiki page](https://github.com/Smar
 
 The source code files are made available under the Apache License, Version 2.0 (Apache-2.0), located in the [LICENSE](LICENSE) file.
 
+## Quick start
+To run any demonstration you first need to configure BFT-SMaRt to define the protocol behavior and the location of each replica.
+
+Configuration file :/conf/system.yml
+```shell
+sh build.sh
+./output/consensus
+```
+
 
 ## Contact
 
