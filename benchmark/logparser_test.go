@@ -6,7 +6,7 @@ import (
 )
 
 func Test_parseLogFile(t *testing.T) {
-	filePath := "../tmp/logfile20231202221527.log"
+	filePath := "../tmp/logfile.log"
 
 	logEntries, err := parseLogFile(filePath)
 	if err != nil {
