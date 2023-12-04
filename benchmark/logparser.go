@@ -16,6 +16,14 @@ type LogEntry struct {
 	Message   string
 }
 
+var matchMap = map[string]string{
+	"Request":    `(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d{3}[+-]\d{4}`,
+	"PrePrepare": `\S+`,
+	"Prepare":    `[\w/.]+.go`,
+	"Commit":     `[\w/.]+.go`,
+	"Reply":      `[\w/.]+.go`,
+}
+
 func parseLogLine(logLine string) (*LogEntry, error) {
 	re := regexp.MustCompile(`(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d{3}[+-]\d{4}\s+(\S+)\s+([\w/.]+.go):(\d+)\s+(.*)`)
 
@@ -68,4 +76,14 @@ func parseLogFile(filePath string) ([]*LogEntry, error) {
 	}
 
 	return logEntries, nil
+}
+
+func parseLogEntries(logEntries []*LogEntry) ([]*LogEntry, error) {
+	var parsedEntries []*LogEntry
+	for _, entry := range logEntries {
+		if entry.Message == "Starting node" {
+			parsedEntries = append(parsedEntries, entry)
+		}
+	}
+	return parsedEntries, nil
 }

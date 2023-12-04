@@ -10,19 +10,21 @@ import (
 	"time"
 )
 
-var testDir string
-var suffix string
-var logger smart.Logger
+var configuration *Configuration
 
-func Setup(configuration *Configuration) {
+func Setup(c *Configuration) {
+	configuration = c
+
 	blockCount := configuration.Block.Count
-	suffix = configuration.Suffix
-	logger = configuration.Logger
-	testDir = configuration.Log.TestDir
-
 	numNodes := configuration.Server.Num
 
-	chains := setupNetwork(NetworkOptions{NumNodes: numNodes, BatchSize: 1, BatchTimeout: 10 * time.Second}, testDir)
+	chains := setupNetwork(NetworkOptions{
+		NumNodes:     numNodes,
+		BatchSize:    uint64(c.Server.BatchSize),
+		BatchTimeout: 10 * time.Second,
+	}, c.Log.TestDir)
+
+	fmt.Println("chains init successfully")
 
 	for blockSeq := 1; blockSeq < blockCount; blockSeq++ {
 		err := chains[1].Order(Transaction{
@@ -32,6 +34,8 @@ func Setup(configuration *Configuration) {
 		if err != nil {
 			panic(err)
 		}
+		fmt.Println(fmt.Sprintf("tx%d order successfully", blockSeq))
+
 		for i := 1; i <= numNodes; i++ {
 			chain := chains[i]
 			block := chain.Listen()
@@ -43,9 +47,10 @@ func Setup(configuration *Configuration) {
 	for _, chain := range chains {
 		chain.Stop()
 	}
+	fmt.Println("Done")
 }
 
-func setupNode(id int, opt NetworkOptions, network map[int]map[int]chan proto.Message, testDir string) *Chain {
+func setupNode(id int, opt NetworkOptions, network map[int]map[int]chan proto.Message, testDir string, logger smart.Logger) *Chain {
 	ingress := make(Ingress)
 	for from := 1; from <= opt.NumNodes; from++ {
 		ingress[from] = network[id][from]
@@ -78,7 +83,11 @@ func setupNetwork(opt NetworkOptions, testDir string) map[int]*Chain {
 	}
 
 	for id := 1; id <= opt.NumNodes; id++ {
-		chains[id] = setupNode(id, opt, network, testDir)
+		logger, err := configuration.NewLogger(id)
+		if err != nil {
+			panic(err)
+		}
+		chains[id] = setupNode(id, opt, network, testDir, logger)
 	}
 	return chains
 }

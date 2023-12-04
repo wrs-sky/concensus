@@ -1,7 +1,8 @@
 Server:
   Num: 4
+  BatchSize: 1
 Block:
   Count: 10
 Log:
-  LogFile: "tmp/logfile"
-  TestDir: "tmp/nativechain"
+  LogDir: "tmp/logfile"
+  TestDir: "tmp/native_chain"

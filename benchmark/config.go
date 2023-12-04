@@ -12,8 +12,6 @@ import (
 	"time"
 )
 
-var workDir string
-
 // Configuration 结构体用于映射 YAML 文件的结构
 type Configuration struct {
 	Server  ServerConfiguration `yaml:"Server"`
@@ -21,17 +19,17 @@ type Configuration struct {
 	Log     Log                 `yaml:"Log"`
 	WorkDir string
 	Suffix  string
-	Logger  smart.Logger
 }
 
 type ServerConfiguration struct {
-	Num int `yaml:"Num"`
+	Num       int `yaml:"Num"`
+	BatchSize int `yaml:"BatchSize"`
 }
 type BlockConfiguration struct {
 	Count int `yaml:"Count"`
 }
 type Log struct {
-	LogFile string `yaml:"LogFile"`
+	LogDir  string `yaml:"LogDir"`
 	TestDir string `yaml:"TestDir"`
 }
 
@@ -56,29 +54,45 @@ func InitConfig(workDir string, confFile string) (*Configuration, error) {
 	c.Suffix = fileSuffix
 
 	//重置路径
-	c.Log.LogFile = filepath.Join(c.WorkDir, c.Log.LogFile+c.Suffix+".log")
+	c.Log.LogDir = filepath.Join(c.WorkDir, c.Log.LogDir+c.Suffix)
 	c.Log.TestDir = filepath.Join(c.WorkDir, c.Log.TestDir+c.Suffix)
 
 	if err := c.Setup(); err != nil {
 		return c, err
 	}
 
+	fmt.Println("Configuration setup successfully")
 	return c, nil
 }
 
 // Setup 用于初始化配置
 func (c *Configuration) Setup() error {
 
-	// 指定输出日志文件路径
-	var logFilePath = c.Log.LogFile
+	//日志文件夹生成
+	logDir := c.Log.LogDir
+	perm := os.FileMode(0777)
+	if err := os.Mkdir(logDir, perm); err != nil {
+		fmt.Println("Error creating logDir directory:", err)
+		return err
+	}
 
-	// 创建日志文件
+	//tmp文件夹生成
+	testDir := c.Log.TestDir
+	if err := os.Mkdir(testDir, perm); err != nil {
+		fmt.Println("Error creating testDir directory:", err)
+		return err
+	}
+
+	return nil
+}
+func (c *Configuration) NewLogger(id int) (smart.Logger, error) {
+	logFilePath := filepath.Join(configuration.Log.LogDir,
+		fmt.Sprintf("node%d.log", id))
 	logFile, err := os.Create(logFilePath)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	defer logFile.Close()
-	time.Sleep(1 * time.Second)
 
 	// 配置日志记录器
 	logConfig := zap.Config{
@@ -91,19 +105,8 @@ func (c *Configuration) Setup() error {
 	basicLog, err := logConfig.Build()
 	if err != nil {
 		fmt.Println("Failed to initialize logger:", err)
-		return err
+		return nil, err
 	}
 
-	c.Logger = basicLog.Sugar()
-	fmt.Println("Log configuration succeeded")
-
-	//tmp文件生成
-	testDir = c.Log.TestDir
-	perm := os.FileMode(0777)
-	if err := os.Mkdir(testDir, perm); err != nil {
-		fmt.Println("Error creating directory:", err)
-		return err
-	}
-
-	return nil
+	return basicLog.Sugar(), nil
 }
