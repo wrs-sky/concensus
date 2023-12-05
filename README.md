@@ -22,15 +22,7 @@ sh build.sh
 ```
 
 
-## Contact
-
-* Yacov Manevich - [yacovm@il.ibm.com](mailto:yacovm@il.ibm.com)
-* Hagar Meir - [hagar.meir@ibm.com](mailto:hagar.meir@ibm.com)
-* Artem Barger - [bartem@il.ibm.com](mailto:bartem@il.ibm.com)
-* Yoav Tock - [tock@il.ibm.com](mailto:tock@il.ibm.com)
-
-## Ownership
-
-The library development was sponsored by __[Idea](https://scientificideas.org/)__ - The Interdisciplinary Blockchain Research and Expertise center. 
-
-* Gennadiy Muzykantov - [repository admin](mailto:g@muzykantov.me)
+## Todo
+1. 编写Client输出日志
+2. 编写测试用例
+3. 视图更改阅读

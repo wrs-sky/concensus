@@ -27,6 +27,13 @@ func Setup(c *Configuration) {
 
 	fmt.Println("chains init successfully")
 
+	logFilePath := filepath.Join(configuration.Log.LogDir, "client.log")
+	logger, err := NewLogger(logFilePath)
+	if err != nil {
+		panic(err)
+	}
+
+	logger.Infof("Starting client")
 	for blockSeq := 1; blockSeq < blockCount; blockSeq++ {
 		err := chains[1].Order(Transaction{
 			ClientID: "alice",
