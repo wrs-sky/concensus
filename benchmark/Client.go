@@ -83,7 +83,7 @@ func (c *Client) Send() {
 		c.logger.Infof("tx%d send to node%d", blockSeq, randID)
 		fmt.Printf("tx%d send to node%d\n", blockSeq, randID)
 
-		c.blockSeq++
+		c.blockSeq = blockSeq + 1
 		time.Sleep(1 * time.Second)
 
 		if c.blockSeq > c.configuration.Block.Count {
@@ -102,7 +102,6 @@ func (c *Client) Close() {
 		c.stopChan <- struct{}{}
 	}
 
-	c.doneWG.Wait()
 	c.logger.Infof("Client closed channel")
 	fmt.Printf("Client closed channel\n")
 
@@ -125,10 +124,7 @@ func (c *Client) Start() {
 	go c.Send()
 	//每个node启动监听
 	for id := 1; id <= c.NumNodes; id++ {
-		c.doneWG.Add(1)
 		go func(id int) {
-			defer c.doneWG.Done()
-
 			for {
 				select {
 				case <-c.stopChan:
@@ -143,9 +139,7 @@ func (c *Client) Start() {
 	}
 
 	//统一处理block
-	c.doneWG.Add(1)
 	go func() {
-		defer c.doneWG.Done()
 
 		for {
 			select {
@@ -156,6 +150,9 @@ func (c *Client) Start() {
 			}
 		}
 	}()
+	//todo:c.HandleBlock(*block)为空
+	// blockSeq 跳跃
+	// c.downWG.Wait()捕获不到
 
 }
 

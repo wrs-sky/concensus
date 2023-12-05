@@ -41,7 +41,7 @@ func SetupWithClient(c *Configuration) {
 
 	client.Start()
 
-	time.Sleep(15 * time.Second)
+	time.Sleep(30 * time.Second)
 	client.Close()
 
 	for _, chain := range chains {
