@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"regexp"
 	"time"
 )
@@ -16,12 +17,38 @@ type LogEntry struct {
 	Message   string
 }
 
-var matchMap = map[string]string{
-	"Request":    `(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d{3}[+-]\d{4}`,
-	"PrePrepare": `\S+`,
-	"Prepare":    `[\w/.]+.go`,
-	"Commit":     `[\w/.]+.go`,
-	"Reply":      `[\w/.]+.go`,
+type MessageEntry struct {
+	Timestamp time.Time
+	Phase     int
+	Message   string
+}
+
+var matchMap = map[int]string{
+	REQUEST:    `(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d{3}[+-]\d{4}`,
+	PREPREPARE: `\S+`,
+	PREPARE:    `[\w/.]+.go`,
+	COMMIT:     `[\w/.]+.go`,
+	REPLY:      `[\w/.]+.go`,
+}
+
+const (
+	REQUEST = iota
+	PREPREPARE
+	PREPARE
+	COMMIT
+	REPLY
+)
+
+func parse(c *Configuration) {
+	var log = make(map[int][]*LogEntry)
+	logDir := configuration.Log.LogDir
+	for id := 1; id < 5; id++ {
+		logFilePath := filepath.Join(logDir,
+			fmt.Sprintf("node%d.log", id))
+		logEntries, _ := parseLogFile(logFilePath)
+		log[id] = logEntries
+	}
+
 }
 
 func parseLogLine(logLine string) (*LogEntry, error) {
