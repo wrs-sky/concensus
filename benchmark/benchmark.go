@@ -23,12 +23,31 @@ func Benchmark(workDir string, confFile string) {
 
 	fmt.Println("main init here")
 
-	configuration = c
 	Setup(c)
 }
 
-func setupWithClient() {
+func SetupWithClient(c *Configuration) {
 
+	configuration = c
+	numNodes := configuration.Server.Num
+
+	chains := setupNetwork(NetworkOptions{
+		NumNodes:     numNodes,
+		BatchSize:    uint64(configuration.Server.BatchSize),
+		BatchTimeout: 10 * time.Second,
+	}, configuration.Log.TestDir)
+
+	client := NewClient(*c, chains)
+
+	client.Start()
+
+	time.Sleep(15 * time.Second)
+	client.Close()
+
+	for _, chain := range chains {
+		chain.Stop()
+	}
+	fmt.Println("Done")
 }
 
 func Setup(c *Configuration) {

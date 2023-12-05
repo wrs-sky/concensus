@@ -21,8 +21,11 @@ type Client struct {
 
 	deliverChanMap map[int]<-chan *Block
 	replyChan      chan *Block
+	stopChan       chan struct{}
 	closeChan      chan struct{}
-	lock           sync.Mutex
+
+	lock   sync.Mutex
+	doneWG sync.WaitGroup
 }
 
 func NewClient(c Configuration, chains map[int]*Chain) *Client {
@@ -52,10 +55,10 @@ func NewClient(c Configuration, chains map[int]*Chain) *Client {
 
 		deliverChanMap: deliverChanMap,
 		replyChan:      make(chan *Block, NumNodes),
-		closeChan:      make(chan struct{}),
+		stopChan:       make(chan struct{}, NumNodes),
 	}
 
-	go client.Listen()
+	go client.Start()
 	return client
 }
 
@@ -73,12 +76,16 @@ func (c *Client) Send() {
 			ID:       fmt.Sprintf("tx%d", blockSeq),
 		})
 		if err != nil {
-			c.logger.Errorf("tx%d order failed", blockSeq)
+			c.logger.Errorf("tx%d order failed and err: %v", blockSeq, err)
 			continue
 		}
+
 		c.logger.Infof("tx%d send to node%d", blockSeq, randID)
+		fmt.Printf("tx%d send to node%d\n", blockSeq, randID)
 
 		c.blockSeq++
+		time.Sleep(1 * time.Second)
+
 		if c.blockSeq > c.configuration.Block.Count {
 			c.logger.Infof("all txs order successfully")
 			return
@@ -88,43 +95,64 @@ func (c *Client) Send() {
 }
 
 func (c *Client) Close() {
-	for id := 1; id <= c.NumNodes+1; id++ {
-		c.closeChan <- struct{}{}
+	fmt.Printf("Client is closing\n")
+	c.logger.Infof("Client is closing")
+
+	for id := 1; id <= c.NumNodes*2; id++ {
+		c.stopChan <- struct{}{}
 	}
+
+	c.doneWG.Wait()
+	c.logger.Infof("Client closed channel")
+	fmt.Printf("Client closed channel\n")
 
 	close(c.replyChan)
 	for block := range c.replyChan {
 		c.HandleBlock(*block)
 	}
+	c.logger.Infof("Client closed")
+	fmt.Printf("Client closed\n")
+
+	c.closeChan <- struct{}{}
 }
 
 func (c *Client) Listen() {
+	<-c.closeChan
+}
 
+func (c *Client) Start() {
+
+	go c.Send()
 	//每个node启动监听
 	for id := 1; id <= c.NumNodes; id++ {
-		go func(id int, deliverChan <-chan *Block) {
+		c.doneWG.Add(1)
+		go func(id int) {
+			defer c.doneWG.Done()
+
 			for {
 				select {
-				case block := <-deliverChan:
-					c.replyChan <- block
-				case <-c.closeChan:
+				case <-c.stopChan:
 					return
+				case block := <-c.deliverChanMap[id]:
+					c.replyChan <- block
 				}
 			}
-
-		}(id, c.deliverChanMap[id])
+		}(id)
 
 		c.logger.Infof("Client start listening on node %d", id)
 	}
 
 	//统一处理block
+	c.doneWG.Add(1)
 	go func() {
+		defer c.doneWG.Done()
+
 		for {
 			select {
+			case <-c.stopChan:
+				return
 			case block := <-c.replyChan:
 				c.HandleBlock(*block)
-			case <-c.closeChan:
-				return
 			}
 		}
 	}()
