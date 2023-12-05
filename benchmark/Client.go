@@ -2,6 +2,7 @@ package benchmark
 
 import (
 	. "github.com/SmartBFT-Go/consensus/examples/naive_chain"
+	smart "github.com/SmartBFT-Go/consensus/pkg/api"
 	"path/filepath"
 )
 
@@ -12,16 +13,15 @@ type Client struct {
 	Quorum         int
 	NumNodes       int
 	ReplyChan      chan *Block
+	logger         smart.Logger
 }
 
 func NewClient(c Configuration, chains map[int]*Chain) *Client {
 	logFilePath := filepath.Join(c.Log.LogDir, "client.log")
-	logger, err := NewLogger(logFilePath)
+	loggerBasic, err := NewLogger(logFilePath)
 	if err != nil {
 		panic(err)
 	}
-
-	logger.Infof("Starting client")
 
 	NumNodes := len(chains)
 	deliverChanMap := make(map[int]<-chan *Block, NumNodes)
@@ -35,12 +35,27 @@ func NewClient(c Configuration, chains map[int]*Chain) *Client {
 		NumNodes:       NumNodes,
 		Quorum:         NumNodes,
 		ReplyChan:      make(chan *Block),
+		logger:         loggerBasic,
 	}
 
-	go client.listen()
+	go client.Listen()
 	return client
 }
 
-func (c *Client) listen() error {
+func (c *Client) Listen() error {
+
+	for id := 1; id <= c.NumNodes; id++ {
+		go func(id int, deliverChan <-chan *Block) {
+			for {
+				select {
+				case block := <-deliverChan:
+					c.logger.Infof("block received %v", block)
+					c.ReplyChan <- block
+				}
+			}
+
+		}(id, c.DeliverChanMap[id])
+	}
+
 	return nil
 }
