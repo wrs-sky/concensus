@@ -13,8 +13,25 @@ import (
 
 var configuration *Configuration
 
-func Setup(c *Configuration) {
+func Benchmark(workDir string, confFile string) {
+	//加载配置，并初始化
+	c, err := InitConfig(workDir, confFile)
+	if err != nil {
+		fmt.Errorf("benchmark InitConfig(%s) error:%v", confFile, err)
+		panic(err.Error())
+	}
+
+	fmt.Println("main init here")
+
 	configuration = c
+	Setup(c)
+}
+
+func setupWithClient() {
+
+}
+
+func Setup(c *Configuration) {
 
 	blockCount := configuration.Block.Count
 	numNodes := configuration.Server.Num
@@ -25,15 +42,6 @@ func Setup(c *Configuration) {
 		BatchTimeout: 10 * time.Second,
 	}, c.Log.TestDir)
 
-	fmt.Println("chains init successfully")
-
-	logFilePath := filepath.Join(configuration.Log.LogDir, "client.log")
-	logger, err := NewLogger(logFilePath)
-	if err != nil {
-		panic(err)
-	}
-
-	logger.Infof("Starting client")
 	for blockSeq := 1; blockSeq < blockCount; blockSeq++ {
 		err := chains[1].Order(Transaction{
 			ClientID: "alice",

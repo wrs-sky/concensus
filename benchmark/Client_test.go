@@ -2,12 +2,23 @@ package benchmark
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
 	"testing"
 	"time"
 )
 
 var lock sync.Mutex
+
+func TestAll(t *testing.T) {
+
+	for {
+		rand.Seed(time.Now().UnixNano())
+		randID := rand.Intn(5) + 1
+		fmt.Println(randID)
+	}
+
+}
 
 func TestClient_Chan(t *testing.T) {
 	deliverChan := make(chan string, 10)

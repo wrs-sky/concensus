@@ -52,6 +52,7 @@ func InitConfig(workDir string, confFile string) (*Configuration, error) {
 	// 指定文件后缀
 	fileSuffix := time.Now().Format("20060102150405")
 	c.Suffix = fileSuffix
+	fmt.Println("Configuration suffix:", c.Suffix)
 
 	//重置路径
 	c.Log.LogDir = filepath.Join(c.WorkDir, c.Log.LogDir+c.Suffix)
