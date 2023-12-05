@@ -76,7 +76,7 @@ func BlockDataFromBytes(rawBlock []byte) *BlockData {
 }
 
 type Chain struct {
-	deliverChan <-chan *Block
+	DeliverChan <-chan *Block
 	node        *Node
 }
 
@@ -85,12 +85,12 @@ func NewChain(id uint64, in Ingress, out Egress, logger smart.Logger, walmet *wa
 	node := NewNode(id, in, out, deliverChan, logger, walmet, bftmet, opts, testDir)
 	return &Chain{
 		node:        node,
-		deliverChan: deliverChan,
+		DeliverChan: deliverChan,
 	}
 }
 
 func (chain *Chain) Listen() Block {
-	block := <-chain.deliverChan
+	block := <-chain.DeliverChan
 	return *block
 }
 
