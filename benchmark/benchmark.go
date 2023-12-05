@@ -7,6 +7,7 @@ import (
 	"github.com/SmartBFT-Go/consensus/pkg/metrics/disabled"
 	"github.com/SmartBFT-Go/consensus/pkg/wal"
 	"github.com/golang/protobuf/proto"
+	"path/filepath"
 	"time"
 )
 
@@ -83,7 +84,9 @@ func setupNetwork(opt NetworkOptions, testDir string) map[int]*Chain {
 	}
 
 	for id := 1; id <= opt.NumNodes; id++ {
-		logger, err := configuration.NewLogger(id)
+		logFilePath := filepath.Join(configuration.Log.LogDir,
+			fmt.Sprintf("node%d.log", id))
+		logger, err := NewLogger(logFilePath)
 		if err != nil {
 			panic(err)
 		}

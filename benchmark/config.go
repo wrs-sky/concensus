@@ -85,9 +85,7 @@ func (c *Configuration) Setup() error {
 
 	return nil
 }
-func (c *Configuration) NewLogger(id int) (smart.Logger, error) {
-	logFilePath := filepath.Join(configuration.Log.LogDir,
-		fmt.Sprintf("node%d.log", id))
+func NewLogger(logFilePath string) (smart.Logger, error) {
 	logFile, err := os.Create(logFilePath)
 	if err != nil {
 		return nil, err
