@@ -6,6 +6,7 @@ import (
 	smart "github.com/SmartBFT-Go/consensus/pkg/api"
 	"math/rand"
 	"path/filepath"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -17,6 +18,7 @@ type Client struct {
 	logger   smart.Logger
 
 	blockSeq      int
+	collector     map[int]int
 	configuration Configuration
 
 	deliverChanMap map[int]<-chan *Block
@@ -39,8 +41,10 @@ func NewClient(c Configuration, chains map[int]*Chain) *Client {
 
 	NumNodes := len(chains)
 	deliverChanMap := make(map[int]<-chan *Block, NumNodes)
+	collector := make(map[int]int, NumNodes+1)
 
 	for id := 1; id <= NumNodes; id++ {
+		collector[id] = 0
 		deliverChanMap[id] = chains[id].DeliverChan
 	}
 
@@ -51,14 +55,15 @@ func NewClient(c Configuration, chains map[int]*Chain) *Client {
 		logger:   loggerBasic,
 
 		blockSeq:      1,
+		collector:     collector,
 		configuration: c,
 
 		deliverChanMap: deliverChanMap,
 		replyChan:      make(chan *Block, NumNodes),
 		stopChan:       make(chan struct{}, NumNodes),
+		closeChan:      make(chan struct{}, 1),
 	}
 
-	go client.Start()
 	return client
 }
 
@@ -102,8 +107,8 @@ func (c *Client) Close() {
 		c.stopChan <- struct{}{}
 	}
 
-	c.logger.Infof("Client closed channel")
-	fmt.Printf("Client closed channel\n")
+	c.logger.Infof("Client close channel")
+	fmt.Printf("Client close channel\n")
 
 	close(c.replyChan)
 	for block := range c.replyChan {
@@ -121,7 +126,6 @@ func (c *Client) Listen() {
 
 func (c *Client) Start() {
 
-	go c.Send()
 	//每个node启动监听
 	for id := 1; id <= c.NumNodes; id++ {
 		go func(id int) {
@@ -150,6 +154,10 @@ func (c *Client) Start() {
 			}
 		}
 	}()
+
+	//启动发送
+	go c.Send()
+
 	//todo:c.HandleBlock(*block)为空
 	// blockSeq 跳跃
 	// c.downWG.Wait()捕获不到
@@ -160,7 +168,20 @@ func (c *Client) HandleBlock(block Block) {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
-	//todo: 业务逻辑
 	c.logger.Infof("block gotten:%s", ObjToString(block))
+
+	//处理区块
+	for _, transaction := range block.Transactions {
+		txID, err := strconv.Atoi(transaction.ID[2:])
+		if err != nil {
+			c.logger.Errorf("txID convert failed and err: %v", err)
+			continue
+		}
+		c.collector[txID] = c.collector[txID] + 1
+		if c.collector[txID] == c.Quorum {
+			c.logger.Infof("tx%d committed successfully", txID)
+			fmt.Printf("tx%d committed successfully\n", txID)
+		}
+	}
 	return
 }

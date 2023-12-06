@@ -2,6 +2,7 @@ package benchmark
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
 	"testing"
 	"time"
@@ -12,41 +13,33 @@ var lock sync.Mutex
 func TestAll(t *testing.T) {
 	c := Client{
 		stopChan: make(chan struct{}, 4),
-	}
-	//每个node启动监听
-	for id := 1; id <= 4; id++ {
-		go func(id int, deliverChan chan string) {
-			for {
-				select {
-				case block := <-deliverChan:
-					fmt.Println("block ", block)
-				case <-c.stopChan:
-					fmt.Println("stopChan b")
-					return
-				}
-			}
-
-		}(id, make(chan string, 10))
+		NumNodes: 4,
 	}
 
-	//统一处理block
 	go func() {
 		for {
-			time.Sleep(10 * time.Second)
-			select {
-			case block := <-c.replyChan:
-				c.HandleBlock(*block)
-			case <-c.stopChan:
-				fmt.Println("stopChan a")
+			blockSeq := c.blockSeq
+
+			//生成id随机数
+			rand.Seed(time.Now().UnixNano())
+			randID := rand.Intn(c.NumNodes) + 1
+
+			fmt.Printf("tx%d send to node%d\n", blockSeq, randID)
+
+			c.blockSeq = blockSeq + 1
+			time.Sleep(1 * time.Second)
+
+			if c.blockSeq > 10 {
 				return
 			}
 		}
-	}()
+	}() //每个node启动监听
+	time.Sleep(5 * time.Second)
 
-	for id := 1; id <= 4+1; id++ {
-		c.stopChan <- struct{}{}
-		fmt.Println("send stopChan ", id)
-	}
+	c.Quorum++
+	c.Quorum++
+	c.Quorum++
+	time.Sleep(10 * time.Second)
 
 }
 
