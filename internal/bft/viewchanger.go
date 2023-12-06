@@ -1354,3 +1354,7 @@ func (v *ViewChanger) blacklist() []uint64 {
 	}
 	return md.BlackList
 }
+
+func (v *ViewChanger) GetConfig() (q int, f int, quorum []uint64, nodes []uint64) {
+	return v.quorum, v.f, v.NodesList, v.NodesList
+}

@@ -520,7 +520,6 @@ func (c *Consensus) startComponents(view, seq, dec uint64, configSync bool) {
 	}
 }
 
-func (c *Consensus) GetConfig() (f int, quorum []uint64, nodes []uint64) {
-	//todo: implement
-	return 0, nil, nil
+func (c *Consensus) GetConfig() (q int, f int, quorum []uint64, nodes []uint64) {
+	return c.viewChanger.GetConfig()
 }

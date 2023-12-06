@@ -13,7 +13,7 @@ var lock sync.Mutex
 func TestAll(t *testing.T) {
 	c := Client{
 		stopChan: make(chan struct{}, 4),
-		NumNodes: 4,
+		N:        4,
 	}
 
 	go func() {
@@ -22,7 +22,7 @@ func TestAll(t *testing.T) {
 
 			//生成id随机数
 			rand.Seed(time.Now().UnixNano())
-			randID := rand.Intn(c.NumNodes) + 1
+			randID := rand.Intn(c.N) + 1
 
 			fmt.Printf("tx%d send to node%d\n", blockSeq, randID)
 
@@ -36,9 +36,9 @@ func TestAll(t *testing.T) {
 	}() //每个node启动监听
 	time.Sleep(5 * time.Second)
 
-	c.Quorum++
-	c.Quorum++
-	c.Quorum++
+	c.q++
+	c.q++
+	c.q++
 	time.Sleep(10 * time.Second)
 
 }

@@ -1,0 +1,69 @@
+2023-12-06T21:17:58.020+0800	INFO	benchmark/Client.go:72	client config: q=3, f=1, N=4, quorum=[1 2 3 4], nodes=[1 2 3 4]
+2023-12-06T21:17:58.020+0800	INFO	benchmark/Client.go:148	Client start listening on node 1
+2023-12-06T21:17:58.020+0800	INFO	benchmark/Client.go:148	Client start listening on node 2
+2023-12-06T21:17:58.020+0800	INFO	benchmark/Client.go:148	Client start listening on node 3
+2023-12-06T21:17:58.020+0800	INFO	benchmark/Client.go:148	Client start listening on node 4
+2023-12-06T21:17:58.020+0800	INFO	benchmark/Client.go:94	tx1 send to node4
+2023-12-06T21:17:59.028+0800	INFO	benchmark/Client.go:94	tx2 send to node2
+2023-12-06T21:18:00.042+0800	INFO	benchmark/Client.go:94	tx3 send to node2
+2023-12-06T21:18:00.054+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"}]}
+2023-12-06T21:18:00.054+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"}]}
+2023-12-06T21:18:00.054+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"}]}
+2023-12-06T21:18:00.054+0800	INFO	benchmark/Client.go:184	tx1 committed successfully
+2023-12-06T21:18:00.055+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"}]}
+2023-12-06T21:18:01.051+0800	INFO	benchmark/Client.go:94	tx4 send to node4
+2023-12-06T21:18:01.056+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx2"}]}
+2023-12-06T21:18:01.056+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx2"}]}
+2023-12-06T21:18:01.056+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx2"}]}
+2023-12-06T21:18:01.056+0800	INFO	benchmark/Client.go:184	tx2 committed successfully
+2023-12-06T21:18:01.057+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx2"}]}
+2023-12-06T21:18:02.055+0800	INFO	benchmark/Client.go:94	tx5 send to node1
+2023-12-06T21:18:02.058+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"}]}
+2023-12-06T21:18:02.058+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"}]}
+2023-12-06T21:18:02.058+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"}]}
+2023-12-06T21:18:02.058+0800	INFO	benchmark/Client.go:184	tx3 committed successfully
+2023-12-06T21:18:02.059+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"}]}
+2023-12-06T21:18:03.066+0800	INFO	benchmark/Client.go:94	tx6 send to node1
+2023-12-06T21:18:04.071+0800	INFO	benchmark/Client.go:94	tx7 send to node4
+2023-12-06T21:18:04.087+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":4,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"}]}
+2023-12-06T21:18:04.087+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":4,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"}]}
+2023-12-06T21:18:04.087+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":4,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"}]}
+2023-12-06T21:18:04.087+0800	INFO	benchmark/Client.go:184	tx5 committed successfully
+2023-12-06T21:18:04.087+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":4,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"}]}
+2023-12-06T21:18:04.091+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":5,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx4"}]}
+2023-12-06T21:18:04.091+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":5,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx4"}]}
+2023-12-06T21:18:04.091+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":5,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx4"}]}
+2023-12-06T21:18:04.092+0800	INFO	benchmark/Client.go:184	tx4 committed successfully
+2023-12-06T21:18:04.092+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":5,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx4"}]}
+2023-12-06T21:18:05.071+0800	INFO	benchmark/Client.go:94	tx8 send to node4
+2023-12-06T21:18:05.076+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":6,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx6"}]}
+2023-12-06T21:18:05.076+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":6,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx6"}]}
+2023-12-06T21:18:05.077+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":6,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx6"}]}
+2023-12-06T21:18:05.077+0800	INFO	benchmark/Client.go:184	tx6 committed successfully
+2023-12-06T21:18:05.077+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":6,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx6"}]}
+2023-12-06T21:18:06.086+0800	INFO	benchmark/Client.go:94	tx9 send to node1
+2023-12-06T21:18:07.088+0800	INFO	benchmark/Client.go:94	tx10 send to node4
+2023-12-06T21:18:07.093+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":7,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx7"}]}
+2023-12-06T21:18:07.093+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":7,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx7"}]}
+2023-12-06T21:18:07.093+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":7,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx7"}]}
+2023-12-06T21:18:07.093+0800	INFO	benchmark/Client.go:184	tx7 committed successfully
+2023-12-06T21:18:07.093+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":7,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx7"}]}
+2023-12-06T21:18:07.114+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":8,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx8"}]}
+2023-12-06T21:18:07.114+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":8,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx8"}]}
+2023-12-06T21:18:07.114+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":8,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx8"}]}
+2023-12-06T21:18:07.114+0800	INFO	benchmark/Client.go:184	tx8 committed successfully
+2023-12-06T21:18:07.114+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":8,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx8"}]}
+2023-12-06T21:18:08.100+0800	INFO	benchmark/Client.go:101	all txs order successfully
+2023-12-06T21:18:08.105+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":9,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx9"}]}
+2023-12-06T21:18:08.105+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":9,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx9"}]}
+2023-12-06T21:18:08.105+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":9,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx9"}]}
+2023-12-06T21:18:08.105+0800	INFO	benchmark/Client.go:184	tx9 committed successfully
+2023-12-06T21:18:08.105+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":9,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx9"}]}
+2023-12-06T21:18:08.110+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":10,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx10"}]}
+2023-12-06T21:18:08.110+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":10,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx10"}]}
+2023-12-06T21:18:08.110+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":10,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx10"}]}
+2023-12-06T21:18:08.110+0800	INFO	benchmark/Client.go:184	tx10 committed successfully
+2023-12-06T21:18:08.110+0800	INFO	benchmark/Client.go:173	block gotten:{"Sequence":10,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx10"}]}
+2023-12-06T21:18:28.031+0800	INFO	benchmark/Client.go:110	Client is closing
+2023-12-06T21:18:28.031+0800	INFO	benchmark/Client.go:116	Client close channel
+2023-12-06T21:18:28.031+0800	INFO	benchmark/Client.go:123	Client closed

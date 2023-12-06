@@ -1,5 +1,5 @@
 ```go
-Consensus.Start()
+consensus Start()
 1. 确认通信配置，节点和相关配置网络验证
 
 // 共识提交要完全排序的请求，并通过调用 Deliver（） 来交付给应用程序提案。这些建议包含由汇编程序组合在一起的批量请求。
@@ -27,4 +27,6 @@ view.Propose()
 case v.incMsgs <- msg:
 
 
+Leader改变
+shouldWeRotate := currLeader != nextLeader
 ```

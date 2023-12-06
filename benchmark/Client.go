@@ -12,10 +12,14 @@ import (
 )
 
 type Client struct {
-	Quorum   int
-	NumNodes int
-	chains   map[int]*Chain
-	logger   smart.Logger
+	q      int
+	f      int
+	N      int
+	quorum []uint64
+	nodes  []uint64
+
+	chains map[int]*Chain
+	logger smart.Logger
 
 	blockSeq      int
 	collector     map[int]int
@@ -49,10 +53,8 @@ func NewClient(c Configuration, chains map[int]*Chain) *Client {
 	}
 
 	client := &Client{
-		Quorum:   NumNodes,
-		NumNodes: NumNodes,
-		chains:   chains,
-		logger:   loggerBasic,
+		chains: chains,
+		logger: loggerBasic,
 
 		blockSeq:      1,
 		collector:     collector,
@@ -64,6 +66,11 @@ func NewClient(c Configuration, chains map[int]*Chain) *Client {
 		closeChan:      make(chan struct{}, 1),
 	}
 
+	client.q, client.f, client.quorum, client.nodes = chains[1].ObtainConfig()
+	client.N = len(client.nodes)
+
+	client.logger.Infof("client config: q=%d, f=%d, N=%d, quorum=%v, nodes=%v", client.q, client.f, client.N, client.quorum, client.nodes)
+	fmt.Printf("client config: q=%d, f=%d, N=%d, quorum=%v, nodes=%v\n", client.q, client.f, client.N, client.quorum, client.nodes)
 	return client
 }
 
@@ -75,7 +82,7 @@ func (c *Client) Send() {
 
 		//生成id随机数
 		rand.Seed(time.Now().UnixNano())
-		randID := rand.Intn(c.NumNodes) + 1
+		randID := rand.Intn(c.N) + 1
 		err := chains[randID].Order(Transaction{
 			ClientID: "alice",
 			ID:       fmt.Sprintf("tx%d", blockSeq),
@@ -103,7 +110,7 @@ func (c *Client) Close() {
 	fmt.Printf("Client is closing\n")
 	c.logger.Infof("Client is closing")
 
-	for id := 1; id <= c.NumNodes*2; id++ {
+	for id := 1; id <= c.N+1; id++ {
 		c.stopChan <- struct{}{}
 	}
 
@@ -127,7 +134,7 @@ func (c *Client) Listen() {
 func (c *Client) Start() {
 
 	//每个node启动监听
-	for id := 1; id <= c.NumNodes; id++ {
+	for id := 1; id <= c.N; id++ {
 		go func(id int) {
 			for {
 				select {
@@ -158,10 +165,6 @@ func (c *Client) Start() {
 	//启动发送
 	go c.Send()
 
-	//todo:c.HandleBlock(*block)为空
-	// blockSeq 跳跃
-	// c.downWG.Wait()捕获不到
-
 }
 
 func (c *Client) HandleBlock(block Block) {
@@ -178,7 +181,7 @@ func (c *Client) HandleBlock(block Block) {
 			continue
 		}
 		c.collector[txID] = c.collector[txID] + 1
-		if c.collector[txID] == c.Quorum {
+		if c.collector[txID] == c.q {
 			c.logger.Infof("tx%d committed successfully", txID)
 			fmt.Printf("tx%d committed successfully\n", txID)
 		}
