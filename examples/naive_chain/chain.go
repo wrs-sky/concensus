@@ -101,3 +101,7 @@ func (chain *Chain) Order(txn Transaction) error {
 func (chain *Chain) Stop() {
 	chain.node.Stop()
 }
+
+func (chain *Chain) ObtainConfig() (f int, quorum []uint64, nodes []uint64) {
+	return chain.node.consensus.GetConfig()
+}
