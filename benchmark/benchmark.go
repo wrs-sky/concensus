@@ -23,7 +23,7 @@ func Benchmark(workDir string, confFile string) {
 
 	fmt.Println("main init here")
 
-	Setup(c)
+	SetupWithClient(c)
 }
 
 func SetupWithClient(c *Configuration) {
@@ -41,7 +41,12 @@ func SetupWithClient(c *Configuration) {
 
 	client.Start()
 
-	time.Sleep(30 * time.Second)
+	for i := 0; i < 30; i++ {
+		time.Sleep(1 * time.Second)
+		if i > 10 {
+			fmt.Printf("%ds count down\n", 30-i)
+		}
+	}
 	client.Close()
 
 	for _, chain := range chains {
