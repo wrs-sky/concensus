@@ -1,6 +1,8 @@
 package benchmark
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 func ObjToString(obj interface{}) string {
 	bytes, err := json.Marshal(obj)

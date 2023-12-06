@@ -13,22 +13,24 @@ import (
 
 type Client struct {
 	q      int
-	f      int
-	N      int
-	quorum []uint64
-	nodes  []uint64
+	f      int      //容错个数
+	N      int      //节点个数
+	quorum []uint64 //投票节点
+	nodes  []uint64 //所有节点
 
-	chains map[int]*Chain
-	logger smart.Logger
-
-	blockSeq      int
-	collector     map[int]int
+	logger        smart.Logger
 	configuration Configuration
 
-	deliverChanMap map[int]<-chan *Block
-	replyChan      chan *Block
+	blockSeq  int              //区块序号
+	collector map[int]int      //收集到的交易
+	doneTX    map[int]struct{} //已经提交的交易
+	chains    map[int]*Chain   //区块链网络
+
+	deliverChanMap map[int]<-chan *Block //每个节点的接收通道
 	stopChan       chan struct{}
 	closeChan      chan struct{}
+
+	stopOnce sync.Once
 
 	lock   sync.Mutex
 	doneWG sync.WaitGroup
@@ -43,38 +45,74 @@ func NewClient(c Configuration, chains map[int]*Chain) *Client {
 		panic(err)
 	}
 
-	NumNodes := len(chains)
-	deliverChanMap := make(map[int]<-chan *Block, NumNodes)
-	collector := make(map[int]int, NumNodes+1)
-
-	for id := 1; id <= NumNodes; id++ {
-		collector[id] = 0
+	N := len(chains)
+	deliverChanMap := make(map[int]<-chan *Block, N)
+	for id := 1; id <= N; id++ {
 		deliverChanMap[id] = chains[id].DeliverChan
 	}
 
 	client := &Client{
-		chains: chains,
-		logger: loggerBasic,
-
-		blockSeq:      1,
-		collector:     collector,
+		chains:        chains,
+		logger:        loggerBasic,
 		configuration: c,
 
 		deliverChanMap: deliverChanMap,
-		replyChan:      make(chan *Block, NumNodes),
-		stopChan:       make(chan struct{}, NumNodes),
-		closeChan:      make(chan struct{}, 1),
 	}
 
-	client.q, client.f, client.quorum, client.nodes = chains[1].ObtainConfig()
-	client.N = len(client.nodes)
-
-	client.logger.Infof("client config: q=%d, f=%d, N=%d, quorum=%v, nodes=%v", client.q, client.f, client.N, client.quorum, client.nodes)
-	fmt.Printf("client config: q=%d, f=%d, N=%d, quorum=%v, nodes=%v\n", client.q, client.f, client.N, client.quorum, client.nodes)
 	return client
 }
 
+func (c *Client) Start() {
+
+	//节点配置
+	c.q, c.f, c.quorum, c.nodes = c.chains[1].ObtainConfig()
+	c.N = len(c.nodes)
+
+	c.Infof(fmt.Sprintf("c config: q=%d, f=%d, N=%d, quorum=%v, nodes=%v", c.q, c.f, c.N, c.quorum, c.nodes))
+
+	//区块配置
+	collector := make(map[int]int, c.N)
+	for id := 1; id <= c.N; id++ {
+		collector[id] = 0
+	}
+	c.blockSeq = 1
+	c.doneTX = make(map[int]struct{}, c.N+1)
+	c.collector = collector
+
+	//channel配置
+	c.stopOnce = sync.Once{}
+	c.stopChan = make(chan struct{}, c.N)
+	c.closeChan = make(chan struct{}, c.N)
+
+	go c.run()
+}
+
+func (c *Client) run() {
+	//每个node启动监听
+	for id := 1; id <= c.N; id++ {
+		go func(id int, c *Client) {
+			for {
+				select {
+				case <-c.stopChan:
+					//todo:无法全部关闭
+					c.Infof(fmt.Sprintf("Client stop listening on node %d", id))
+					break
+				case block := <-c.deliverChanMap[id]:
+					c.HandleBlock(*block)
+				}
+			}
+		}(id, c)
+
+		c.logger.Infof("Client start listening on node %d", id)
+	}
+
+	//启动发送
+	go c.Send()
+}
+
 func (c *Client) Send() {
+	c.doneWG.Add(1)
+	defer c.doneWG.Done()
 
 	chains := c.chains
 	for {
@@ -92,8 +130,7 @@ func (c *Client) Send() {
 			continue
 		}
 
-		c.logger.Infof("tx%d send to node%d", blockSeq, randID)
-		fmt.Printf("tx%d send to node%d\n", blockSeq, randID)
+		c.Infof(fmt.Sprintf("tx%d send to node%d", blockSeq, randID))
 
 		c.blockSeq = blockSeq + 1
 		time.Sleep(1 * time.Second)
@@ -107,64 +144,22 @@ func (c *Client) Send() {
 }
 
 func (c *Client) Close() {
-	fmt.Printf("Client is closing\n")
-	c.logger.Infof("Client is closing")
+	c.stopOnce.Do(
+		func() {
+			c.Infof(fmt.Sprintf("Client is closing"))
 
-	for id := 1; id <= c.N+1; id++ {
-		c.stopChan <- struct{}{}
-	}
+			for id := 1; id <= c.N; id++ {
+				c.stopChan <- struct{}{}
+			}
+			c.closeChan <- struct{}{}
 
-	c.logger.Infof("Client close channel")
-	fmt.Printf("Client close channel\n")
-
-	close(c.replyChan)
-	for block := range c.replyChan {
-		c.HandleBlock(*block)
-	}
-	c.logger.Infof("Client closed")
-	fmt.Printf("Client closed\n")
-
-	c.closeChan <- struct{}{}
+			c.Infof(fmt.Sprintf("Client closed channel"))
+		},
+	)
 }
 
 func (c *Client) Listen() {
 	<-c.closeChan
-}
-
-func (c *Client) Start() {
-
-	//每个node启动监听
-	for id := 1; id <= c.N; id++ {
-		go func(id int) {
-			for {
-				select {
-				case <-c.stopChan:
-					return
-				case block := <-c.deliverChanMap[id]:
-					c.replyChan <- block
-				}
-			}
-		}(id)
-
-		c.logger.Infof("Client start listening on node %d", id)
-	}
-
-	//统一处理block
-	go func() {
-
-		for {
-			select {
-			case <-c.stopChan:
-				return
-			case block := <-c.replyChan:
-				c.HandleBlock(*block)
-			}
-		}
-	}()
-
-	//启动发送
-	go c.Send()
-
 }
 
 func (c *Client) HandleBlock(block Block) {
@@ -180,11 +175,23 @@ func (c *Client) HandleBlock(block Block) {
 			c.logger.Errorf("txID convert failed and err: %v", err)
 			continue
 		}
+
 		c.collector[txID] = c.collector[txID] + 1
 		if c.collector[txID] == c.q {
-			c.logger.Infof("tx%d committed successfully", txID)
-			fmt.Printf("tx%d committed successfully\n", txID)
+			c.doneTX[txID] = struct{}{}
+			c.Infof(fmt.Sprintf("tx%d committed successfully", txID))
 		}
 	}
+
+	if len(c.doneTX) == c.configuration.Block.Count {
+		c.Infof(fmt.Sprintf("all txs committed successfully"))
+		c.Close()
+	}
 	return
+}
+
+//Infof logger+fmt双向输出
+func (c *Client) Infof(format string) {
+	c.logger.Infof(format)
+	fmt.Println(format)
 }

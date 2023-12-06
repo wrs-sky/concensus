@@ -16,7 +16,8 @@ import (
 type Configuration struct {
 	Server  ServerConfiguration `yaml:"Server"`
 	Block   BlockConfiguration  `yaml:"Block"`
-	Log     Log                 `yaml:"Log"`
+	Log     LogConfiguration    `yaml:"Log"`
+	System  SystemConfiguration `yaml:"System"`
 	WorkDir string
 	Suffix  string
 }
@@ -25,12 +26,18 @@ type ServerConfiguration struct {
 	Num       int `yaml:"Num"`
 	BatchSize int `yaml:"BatchSize"`
 }
+
 type BlockConfiguration struct {
 	Count int `yaml:"Count"`
 }
-type Log struct {
+
+type LogConfiguration struct {
 	LogDir  string `yaml:"LogDir"`
 	TestDir string `yaml:"TestDir"`
+}
+
+type SystemConfiguration struct {
+	Timeout int `yaml:"Timeout"`
 }
 
 // InitConfig 用于初始化加载配置文件

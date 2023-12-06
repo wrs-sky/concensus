@@ -7,6 +7,7 @@ import (
 	"github.com/SmartBFT-Go/consensus/pkg/metrics/disabled"
 	"github.com/SmartBFT-Go/consensus/pkg/wal"
 	"github.com/golang/protobuf/proto"
+	"os"
 	"path/filepath"
 	"time"
 )
@@ -21,7 +22,8 @@ func Benchmark(workDir string, confFile string) {
 		panic(err.Error())
 	}
 
-	fmt.Println("main init here")
+	fmt.Println("Configuration:", ObjToString(c))
+	fmt.Println("---------------------")
 
 	SetupWithClient(c)
 }
@@ -38,21 +40,30 @@ func SetupWithClient(c *Configuration) {
 	}, configuration.Log.TestDir)
 
 	client := NewClient(*c, chains)
-
 	client.Start()
 
-	for i := 0; i < 30; i++ {
+	go func() {
+		client.Listen()
+		fmt.Println("client listen done")
+		exit(chains)
+	}()
+
+	duration := c.System.Timeout
+	for i := 0; i < duration; i++ {
 		time.Sleep(1 * time.Second)
-		if i > 10 {
-			fmt.Printf("%ds count down\n", 30-i)
+		if i > duration/2 {
+			fmt.Printf("%ds count down\n", duration-i)
 		}
 	}
 	client.Close()
-
+	exit(chains)
+}
+func exit(chains map[int]*Chain) {
 	for _, chain := range chains {
 		chain.Stop()
 	}
 	fmt.Println("Done")
+	os.Exit(0)
 }
 
 func Setup(c *Configuration) {

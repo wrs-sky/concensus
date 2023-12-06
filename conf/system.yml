@@ -6,3 +6,5 @@ Block:
 Log:
   LogDir: "tmp/logfile"
   TestDir: "tmp/native_chain"
+System:
+  Timeout: 60
