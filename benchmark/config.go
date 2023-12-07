@@ -28,7 +28,8 @@ type ServerConfiguration struct {
 }
 
 type BlockConfiguration struct {
-	Count int `yaml:"Count"`
+	Count        int `yaml:"Count"`
+	IntervalTime int `yaml:"IntervalTime"`
 }
 
 type LogConfiguration struct {

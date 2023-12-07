@@ -133,7 +133,7 @@ func (c *Client) Send() {
 		c.Infof(fmt.Sprintf("tx%d send to node%d", blockSeq, randID))
 
 		c.blockSeq = blockSeq + 1
-		time.Sleep(1 * time.Second)
+		time.Sleep(time.Duration(c.configuration.Block.IntervalTime) * time.Millisecond)
 
 		if c.blockSeq > c.configuration.Block.Count {
 			c.logger.Infof("all txs order successfully")
