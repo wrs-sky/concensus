@@ -96,7 +96,7 @@ func (c *Client) run() {
 				case <-c.stopChan:
 					//todo:无法全部关闭
 					c.Infof(fmt.Sprintf("Client stop listening on node %d", id))
-					break
+					return
 				case block := <-c.deliverChanMap[id]:
 					c.HandleBlock(*block)
 				}
