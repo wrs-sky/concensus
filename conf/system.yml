@@ -3,7 +3,7 @@ Server:
   BatchSize: 1
 Block:
   Count: 10
-  IntervalTime: 1000
+  IntervalTime: 1000 #milliseconds
 Log:
   LogDir: "tmp/logfile"
   TestDir: "tmp/native_chain"
