@@ -4,6 +4,7 @@ import (
 	"fmt"
 	. "github.com/SmartBFT-Go/consensus/examples/naive_chain"
 	smart "github.com/SmartBFT-Go/consensus/pkg/api"
+	"github.com/SmartBFT-Go/consensus/pkg/types"
 	"math/rand"
 	"path/filepath"
 	"strconv"
@@ -27,7 +28,8 @@ type Client struct {
 	chains    map[int]*Chain   //区块链网络
 
 	deliverChanMap map[int]<-chan *Block //每个节点的接收通道
-	stopChan       chan struct{}
+	stopChanMap    map[int]chan struct{} //每个节点的停止通道
+	MsgChan        chan Message          //消息通道
 	closeChan      chan struct{}
 
 	stopOnce sync.Once
@@ -35,6 +37,19 @@ type Client struct {
 	lock   sync.Mutex
 	doneWG sync.WaitGroup
 }
+
+type Message struct {
+	Type    MsgType
+	Content interface{}
+}
+type MsgType int
+
+const (
+	RECONFIG = iota
+	REQUSET
+	ObtainConfig
+	CLOSE
+)
 
 func NewClient(c Configuration, chains map[int]*Chain) *Client {
 
@@ -47,15 +62,18 @@ func NewClient(c Configuration, chains map[int]*Chain) *Client {
 
 	N := len(chains)
 	deliverChanMap := make(map[int]<-chan *Block, N)
+	stopChanMap := make(map[int]chan struct{}, N)
+
 	for id := 1; id <= N; id++ {
 		deliverChanMap[id] = chains[id].DeliverChan
+		stopChanMap[id] = make(chan struct{}, 1)
 	}
 
 	client := &Client{
-		chains:        chains,
-		logger:        loggerBasic,
-		configuration: c,
-
+		chains:         chains,
+		logger:         loggerBasic,
+		configuration:  c,
+		stopChanMap:    stopChanMap,
 		deliverChanMap: deliverChanMap,
 	}
 
@@ -63,12 +81,8 @@ func NewClient(c Configuration, chains map[int]*Chain) *Client {
 }
 
 func (c *Client) Start() {
-
 	//节点配置
-	c.q, c.f, c.quorum, c.nodes = c.chains[1].ObtainConfig()
-	c.N = len(c.nodes)
-
-	c.Infof(fmt.Sprintf("c config: q=%d, f=%d, N=%d, quorum=%v, nodes=%v", c.q, c.f, c.N, c.quorum, c.nodes))
+	c.obtainConfig()
 
 	//区块配置
 	collector := make(map[int]int, c.N)
@@ -80,11 +94,36 @@ func (c *Client) Start() {
 	c.collector = collector
 
 	//channel配置
-	c.stopOnce = sync.Once{}
-	c.stopChan = make(chan struct{}, c.N)
+	c.MsgChan = make(chan Message)
 	c.closeChan = make(chan struct{}, c.N)
 
+	c.stopOnce = sync.Once{}
+
 	go c.run()
+}
+
+func (c *Client) Close() {
+	c.stopOnce.Do(
+		func() {
+			c.Infof(fmt.Sprintf("Client is closing"))
+
+			//关闭通道
+			for id := 1; id <= c.N; id++ {
+				c.stopChanMap[id] <- struct{}{}
+			}
+
+			c.MsgChan <- Message{
+				Type: CLOSE,
+			}
+
+			c.closeChan <- struct{}{}
+			c.Infof(fmt.Sprintf("Client closed channel"))
+		},
+	)
+}
+
+func (c *Client) Listen() {
+	<-c.closeChan
 }
 
 func (c *Client) run() {
@@ -93,7 +132,7 @@ func (c *Client) run() {
 		go func(id int, c *Client) {
 			for {
 				select {
-				case <-c.stopChan:
+				case <-c.stopChanMap[id]:
 					//todo:无法全部关闭
 					c.Infof(fmt.Sprintf("Client stop listening on node %d", id))
 					return
@@ -106,60 +145,74 @@ func (c *Client) run() {
 		c.logger.Infof("Client start listening on node %d", id)
 	}
 
-	//启动发送
-	go c.Send()
+	//消息监听
+	go func() {
+		for {
+			select {
+			case message := <-c.MsgChan:
+				if message.Type == CLOSE {
+					c.Infof(fmt.Sprintf("Client stop message listening"))
+					c.Close()
+					return
+				}
+				c.HandleMessage(message)
+			}
+		}
+	}()
 }
 
-func (c *Client) Send() {
-	c.doneWG.Add(1)
-	defer c.doneWG.Done()
+func (c *Client) HandleMessage(msg Message) {
+	switch msg.Type {
+	case REQUSET:
+		c.request()
+	case ObtainConfig:
+		c.obtainConfig()
+	case RECONFIG:
+		c.reconfig(msg.Content.(types.Reconfig))
+	default:
+		c.logger.Errorf("msgType error")
+	}
+}
 
-	chains := c.chains
-	for {
-		blockSeq := c.blockSeq
+// request 发送交易
+func (c *Client) request() {
+	blockSeq := c.blockSeq
 
-		//生成id随机数
-		rand.Seed(time.Now().UnixNano())
-		randID := rand.Intn(c.N) + 1
-		err := chains[randID].Order(Transaction{
-			ClientID: "alice",
-			ID:       fmt.Sprintf("tx%d", blockSeq),
-		})
-		if err != nil {
-			c.logger.Errorf("tx%d order failed and err: %v", blockSeq, err)
-			continue
-		}
-
-		c.Infof(fmt.Sprintf("tx%d send to node%d", blockSeq, randID))
-
-		c.blockSeq = blockSeq + 1
-		time.Sleep(time.Duration(c.configuration.Block.IntervalTime) * time.Millisecond)
-
-		if c.blockSeq > c.configuration.Block.Count {
-			c.logger.Infof("all txs order successfully")
-			return
-		}
+	//生成id随机数
+	rand.Seed(time.Now().UnixNano())
+	randID := rand.Intn(c.N) + 1
+	err := c.chains[randID].Order(Transaction{
+		ClientID: "alice",
+		ID:       fmt.Sprintf("tx%d", blockSeq),
+	})
+	if err != nil {
+		c.logger.Errorf("tx%d order failed and err: %v", blockSeq, err)
+		return
 	}
 
+	c.Infof(fmt.Sprintf("tx%d send to node%d", blockSeq, randID))
+
+	c.blockSeq = blockSeq + 1
 }
 
-func (c *Client) Close() {
-	c.stopOnce.Do(
-		func() {
-			c.Infof(fmt.Sprintf("Client is closing"))
+func (c *Client) obtainConfig() {
+	//节点配置
+	c.q, c.f, c.quorum, c.nodes = c.chains[1].ObtainConfig()
+	c.N = len(c.nodes)
 
-			for id := 1; id <= c.N; id++ {
-				c.stopChan <- struct{}{}
-			}
-			c.closeChan <- struct{}{}
+	c.Infof(fmt.Sprintf("c config: q=%d, f=%d, N=%d, quorum=%v, nodes=%v", c.q, c.f, c.N, c.quorum, c.nodes))
 
-			c.Infof(fmt.Sprintf("Client closed channel"))
-		},
-	)
 }
 
-func (c *Client) Listen() {
-	<-c.closeChan
+func (c *Client) reconfig(reconfig types.Reconfig) {
+	c.Infof(fmt.Sprintf("reconfig start,new nodes:%v", reconfig.CurrentNodes))
+
+	for id := 1; id <= c.N; id++ {
+		c.chains[id].Reconfig(reconfig)
+	}
+
+	time.Sleep(1 * time.Second)
+	c.obtainConfig()
 }
 
 func (c *Client) HandleBlock(block Block) {

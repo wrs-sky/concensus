@@ -88,7 +88,8 @@ func (c *Consensus) Sync() types.SyncResponse {
 	if syncResponse.Reconfig.InReplicatedDecisions {
 		c.Logger.Debugf("Detected a reconfig in sync")
 		c.reconfigChan <- types.Reconfig{
-			InLatestDecision: true,
+			//InLatestDecision: true,
+			InLatestDecision: syncResponse.Reconfig.InReplicatedDecisions,
 			CurrentNodes:     syncResponse.Reconfig.CurrentNodes,
 			CurrentConfig:    syncResponse.Reconfig.CurrentConfig,
 		}

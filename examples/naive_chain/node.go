@@ -43,10 +43,24 @@ type Node struct {
 	out         Egress
 	deliverChan chan<- *Block
 	consensus   *smartbft.Consensus
+	config      bft.Reconfig
 }
 
-func (*Node) Sync() bft.SyncResponse {
-	panic("implement me")
+func (n *Node) Sync() bft.SyncResponse {
+	//panic("implement me")
+	return bft.SyncResponse{
+		Reconfig: bft.ReconfigSync{
+			InReplicatedDecisions: n.config.InLatestDecision,
+			CurrentNodes:          n.config.CurrentNodes,
+			CurrentConfig:         n.config.CurrentConfig,
+		},
+	}
+}
+
+func (n *Node) Reconfig(reconfig bft.Reconfig) {
+	reconfig.CurrentConfig.SelfID = n.id
+	n.config = reconfig
+	n.consensus.Sync()
 }
 
 func (*Node) AuxiliaryData(_ []byte) []byte {

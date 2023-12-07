@@ -25,24 +25,25 @@ type MessageEntry struct {
 	Message   string
 }
 
-var matchMap = map[int]string{
-	REQUEST:         `(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d{3}[+-]\d{4}`,
-	SENT_PREPREPARE: `Submit Request: {alice tx1}`,
-	PREPREPARED:     `1 got message <PrePrepare with view: 0, seq: 1, payload of 20 bytes, header: MEcCAQETABNAYmExMzdjZDRkMzcxZGMzZDA4NTVkMzRiYjcxZGI2OGZjMGVhMTMwYTBlZDQ2OThiNWY5NjU2MWU3MzAwZDRkMA==> from 1 with seq 1`,
-	PREPARED:        `2 collected 2 prepares from [1 3]`,
-	COMMITTED:       `2 collected 2 commits from [3 4]`,
-	DECIDED:         `Deciding on seq 9`,
-}
-
-const (
-	REQUEST = iota
-	SENT_PREPREPARE
-	PREPREPARED
-	PREPARED
-	COMMITTED
-	DECIDED
-	REPLY
-)
+//
+//var matchMap = map[int]string{
+//	REQUEST:         `(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d{3}[+-]\d{4}`,
+//	SENT_PREPREPARE: `Submit Request: {alice tx1}`,
+//	PREPREPARED:     `1 got message <PrePrepare with view: 0, seq: 1, payload of 20 bytes, header: MEcCAQETABNAYmExMzdjZDRkMzcxZGMzZDA4NTVkMzRiYjcxZGI2OGZjMGVhMTMwYTBlZDQ2OThiNWY5NjU2MWU3MzAwZDRkMA==> from 1 with seq 1`,
+//	PREPARED:        `2 collected 2 prepares from [1 3]`,
+//	COMMITTED:       `2 collected 2 commits from [3 4]`,
+//	DECIDED:         `Deciding on seq 9`,
+//}
+//
+//const (
+//	REQUEST = iota
+//	SENT_PREPREPARE
+//	PREPREPARED
+//	PREPARED
+//	COMMITTED
+//	DECIDED
+//	REPLY
+//)
 
 func parse(c *Configuration) {
 	var log = make(map[int][]*LogEntry)

@@ -7,8 +7,8 @@ package naive
 
 import (
 	"encoding/asn1"
-
 	smart "github.com/SmartBFT-Go/consensus/pkg/api"
+	"github.com/SmartBFT-Go/consensus/pkg/types"
 	"github.com/SmartBFT-Go/consensus/pkg/wal"
 )
 
@@ -104,4 +104,8 @@ func (chain *Chain) Stop() {
 
 func (chain *Chain) ObtainConfig() (q int, f int, quorum []uint64, nodes []uint64) {
 	return chain.node.consensus.GetConfig()
+}
+
+func (chain *Chain) Reconfig(reconfig types.Reconfig) {
+	chain.node.Reconfig(reconfig)
 }
