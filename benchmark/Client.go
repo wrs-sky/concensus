@@ -166,7 +166,7 @@ func (c *Client) HandleBlock(block Block) {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
-	c.logger.Infof("block gotten:%s", ObjToString(block))
+	c.logger.Infof("block gotten:%s", ObjToJson(block))
 
 	//处理区块
 	for _, transaction := range block.Transactions {

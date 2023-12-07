@@ -22,7 +22,7 @@ func Benchmark(workDir string, confFile string) {
 		panic(err.Error())
 	}
 
-	fmt.Println("Configuration:", ObjToString(c))
+	fmt.Println("Configuration:", ObjToJson(c))
 	fmt.Println("---------------------")
 
 	SetupWithClient(c)

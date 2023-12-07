@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 )
 
-func ObjToString(obj interface{}) string {
+func ObjToJson(obj interface{}) string {
 	bytes, err := json.Marshal(obj)
 	if err != nil {
 		return ""
