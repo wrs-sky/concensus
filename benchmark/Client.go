@@ -164,7 +164,7 @@ func (c *Client) run() {
 func (c *Client) HandleMessage(msg Message) {
 	switch msg.Type {
 	case REQUSET:
-		c.request()
+		c.request(msg.Content.(int))
 	case ObtainConfig:
 		c.obtainConfig()
 	case RECONFIG:
@@ -174,10 +174,34 @@ func (c *Client) HandleMessage(msg Message) {
 	}
 }
 
-// request 发送交易
-func (c *Client) request() {
-	blockSeq := c.blockSeq
+// request 发送交易，超时重试
+func (c *Client) request(blockSeq int) {
 
+	//开启线程
+	go func(blockSeq int) {
+		//重试3次
+		for i := 0; i < c.configuration.Client.RetryTimes; i++ {
+
+			if err := c.obtainConfig(); err != nil {
+				continue
+			}
+			if err := c.send(blockSeq); err != nil {
+				continue
+			}
+
+			time.Sleep(time.Duration(c.configuration.Client.RetryTimeout) * time.Millisecond)
+
+			//完成交易被down，则推出
+			if _, ok := c.doneTX[blockSeq]; ok {
+				break
+			}
+		}
+	}(blockSeq)
+
+}
+
+// send 发送交易
+func (c *Client) send(blockSeq int) error {
 	//生成id随机数
 	rand.Seed(time.Now().UnixNano())
 	randID := rand.Intn(c.N) + 1
@@ -187,21 +211,20 @@ func (c *Client) request() {
 	})
 	if err != nil {
 		c.logger.Errorf("tx%d order failed and err: %v", blockSeq, err)
-		return
+		return err
 	}
 
 	c.Infof(fmt.Sprintf("tx%d send to node%d", blockSeq, randID))
-
-	c.blockSeq = blockSeq + 1
+	return nil
 }
 
-func (c *Client) obtainConfig() {
+func (c *Client) obtainConfig() error {
 	//节点配置
 	c.q, c.f, c.quorum, c.nodes = c.chains[1].ObtainConfig()
 	c.N = len(c.nodes)
 
 	c.Infof(fmt.Sprintf("c config: q=%d, f=%d, N=%d, quorum=%v, nodes=%v", c.q, c.f, c.N, c.quorum, c.nodes))
-
+	return nil
 }
 
 func (c *Client) reconfig(reconfig types.Reconfig) {
@@ -230,7 +253,7 @@ func (c *Client) HandleBlock(block Block) {
 		}
 
 		c.collector[txID] = c.collector[txID] + 1
-		if c.collector[txID] == c.q {
+		if c.collector[txID] >= c.q {
 			c.doneTX[txID] = struct{}{}
 			c.Infof(fmt.Sprintf("tx%d committed successfully", txID))
 		}

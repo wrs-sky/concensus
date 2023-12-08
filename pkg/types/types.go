@@ -120,3 +120,11 @@ type ReconfigSync struct {
 	CurrentNodes          []uint64
 	CurrentConfig         Configuration
 }
+
+type Config struct {
+	Q      int      //投票个数
+	F      int      //容错个数
+	N      int      //节点个数
+	Quorum []uint64 //投票节点
+	Nodes  []uint64 //所有节点
+}

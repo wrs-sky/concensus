@@ -15,6 +15,7 @@ import (
 // Configuration 结构体用于映射 YAML 文件的结构
 type Configuration struct {
 	Server  ServerConfiguration `yaml:"Server"`
+	Client  ClientConfiguration `yaml:"Client"`
 	Block   BlockConfiguration  `yaml:"Block"`
 	Log     LogConfiguration    `yaml:"Log"`
 	System  SystemConfiguration `yaml:"System"`
@@ -25,6 +26,11 @@ type Configuration struct {
 type ServerConfiguration struct {
 	Num       int `yaml:"Num"`
 	BatchSize int `yaml:"BatchSize"`
+}
+
+type ClientConfiguration struct {
+	RetryTimeout int `yaml:"RetryTimeout"`
+	RetryTimes   int `yaml:"RetryTimes"`
 }
 
 type BlockConfiguration struct {

@@ -59,9 +59,9 @@ func SetupWithClient(c *Configuration) {
 
 //测试程序
 func (c *Client) benchmark() {
-
+	blockSeq := 1
 	for {
-		if c.blockSeq == 10 {
+		if blockSeq == 10 {
 			currentNodes := []uint64{1, 2, 3, 4, 5}
 			c.MsgChan <- Message{
 				Type: RECONFIG,
@@ -74,12 +74,13 @@ func (c *Client) benchmark() {
 		}
 
 		c.MsgChan <- Message{
-			Type: REQUSET,
+			Type:    REQUSET,
+			Content: blockSeq,
 		}
 
 		time.Sleep(time.Duration(c.configuration.Block.IntervalTime) * time.Millisecond)
 
-		if c.blockSeq > c.configuration.Block.Count {
+		if blockSeq > c.configuration.Block.Count {
 			c.Infof("all txs order successfully")
 
 			time.Sleep(5 * time.Second)
