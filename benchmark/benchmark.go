@@ -2,6 +2,7 @@ package benchmark
 
 import (
 	"fmt"
+	"github.com/SmartBFT-Go/consensus/client"
 	. "github.com/SmartBFT-Go/consensus/examples/naive_chain"
 	"github.com/SmartBFT-Go/consensus/pkg/types"
 	"os"
@@ -18,7 +19,7 @@ func Benchmark(workDir string, confFile string) {
 		panic(err.Error())
 	}
 
-	fmt.Println("Configuration:", ObjToJson(c))
+	fmt.Println("Configuration:", client.ObjToJson(c))
 	fmt.Println("---------------------")
 
 	SetupWithClient(c)
@@ -35,10 +36,10 @@ func SetupWithClient(c *Configuration) {
 		BatchTimeout: 10 * time.Second,
 	}, configuration.Log.TestDir)
 
-	client := NewClient(*c, chains)
+	client := client.NewClient(*c, chains)
 	client.Start()
 
-	go client.benchmark()
+	go run(client)
 
 	go func() {
 		client.Listen()
@@ -58,13 +59,13 @@ func SetupWithClient(c *Configuration) {
 }
 
 //测试程序
-func (c *Client) benchmark() {
+func run(c *client.Client) {
 	blockSeq := 1
 	for {
 		if blockSeq == 10 {
 			currentNodes := []uint64{1, 2, 3, 4, 5}
-			c.MsgChan <- Message{
-				Type: RECONFIG,
+			c.MsgChan <- client.Message{
+				Type: client.RECONFIG,
 				Content: types.Reconfig{
 					InLatestDecision: true,
 					CurrentNodes:     currentNodes,
@@ -73,14 +74,14 @@ func (c *Client) benchmark() {
 			}
 		}
 
-		c.MsgChan <- Message{
-			Type:    REQUSET,
+		c.MsgChan <- client.Message{
+			Type:    client.REQUSET,
 			Content: blockSeq,
 		}
 
-		time.Sleep(time.Duration(c.configuration.Block.IntervalTime) * time.Millisecond)
+		time.Sleep(time.Duration(configuration.Block.IntervalTime) * time.Millisecond)
 
-		if blockSeq > c.configuration.Block.Count {
+		if blockSeq > configuration.Block.Count {
 			c.Infof("all txs order successfully")
 
 			time.Sleep(5 * time.Second)

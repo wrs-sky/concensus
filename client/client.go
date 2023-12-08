@@ -1,7 +1,8 @@
-package benchmark
+package client
 
 import (
 	"fmt"
+	"github.com/SmartBFT-Go/consensus/benchmark"
 	. "github.com/SmartBFT-Go/consensus/examples/naive_chain"
 	smart "github.com/SmartBFT-Go/consensus/pkg/api"
 	"github.com/SmartBFT-Go/consensus/pkg/types"
@@ -20,7 +21,7 @@ type Client struct {
 	nodes  []uint64 //所有节点
 
 	logger        smart.Logger
-	configuration Configuration
+	configuration benchmark.Configuration
 
 	blockSeq  int              //区块序号
 	collector map[int]int      //收集到的交易
@@ -51,11 +52,11 @@ const (
 	CLOSE
 )
 
-func NewClient(c Configuration, chains map[int]*Chain) *Client {
+func NewClient(c benchmark.Configuration, chains map[int]*Chain) *Client {
 
 	//初始化logger
 	logFilePath := filepath.Join(c.Log.LogDir, "client.log")
-	loggerBasic, err := NewLogger(logFilePath)
+	loggerBasic, err := benchmark.NewLogger(logFilePath)
 	if err != nil {
 		panic(err)
 	}
