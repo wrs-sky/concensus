@@ -182,9 +182,6 @@ func (c *Client) request(blockSeq int) {
 		//重试3次
 		for i := 0; i < c.configuration.Client.RetryTimes; i++ {
 
-			if err := c.obtainConfig(); err != nil {
-				continue
-			}
 			if err := c.send(blockSeq); err != nil {
 				continue
 			}
