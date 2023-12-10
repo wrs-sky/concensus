@@ -1,0 +1,217 @@
+2023-12-10T20:36:36.743+0800	DEBUG	wal/writeaheadlog.go:749	CRC-Anchor DEED0001 written to file: tmp\native_chain20231210203636\node9\0000000000000001.wal, at offset 0, size=16
+2023-12-10T20:36:36.744+0800	INFO	wal/writeaheadlog.go:192	Write-Ahead-Log created successfully, mode: WRITE, dir: tmp\native_chain20231210203636\node9
+2023-12-10T20:36:36.744+0800	DEBUG	consensus/consensus.go:153	Application started with view 0, seq 0, and decisions 0
+2023-12-10T20:36:36.744+0800	INFO	bft/state.go:99	Nothing to restore
+2023-12-10T20:36:36.744+0800	DEBUG	consensus/consensus.go:480	No view change to restore
+2023-12-10T20:36:36.744+0800	INFO	bft/state.go:80	Nothing to restore
+2023-12-10T20:36:36.744+0800	DEBUG	consensus/consensus.go:495	No new view to restore
+2023-12-10T20:36:36.744+0800	DEBUG	bft/controller.go:793	Starting controller with view 0, sequence 1, and decisions 0
+2023-12-10T20:36:36.744+0800	DEBUG	bft/controller.go:805	The number of nodes (N) is 10, F is 3, and the quorum size is 7
+2023-12-10T20:36:36.744+0800	INFO	bft/state.go:121	Nothing to restore
+2023-12-10T20:36:36.744+0800	INFO	bft/heartbeatmonitor.go:185	Changing to follower role, current view: 0, current leader: 1
+2023-12-10T20:36:36.744+0800	INFO	bft/controller.go:395	Starting view with number 0, sequence 1, and decisions 0
+2023-12-10T20:36:37.269+0800	DEBUG	bft/controller.go:322	9 got message from 1: <PrePrepare with view: 0, seq: 1, payload of 36 bytes, header: MEcCAQETABNAOGEwODhmZjIyZjkwNDAxMDI5MjBhMTk4N2Q1MjkyNDU4NjQxMzFlOTM5YTVkYzE4ZjFjOGJmNmYwMTg5MTU1OA==>
+2023-12-10T20:36:37.270+0800	DEBUG	bft/controller.go:322	9 got message from 1: prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"}
+2023-12-10T20:36:37.270+0800	DEBUG	bft/heartbeatmonitor.go:255	Received heartbeat from 1, last heartbeat was 0s ago
+2023-12-10T20:36:37.270+0800	DEBUG	bft/heartbeatmonitor.go:255	Received heartbeat from 1, last heartbeat was 0s ago
+2023-12-10T20:36:37.270+0800	DEBUG	bft/view.go:221	9 got message <PrePrepare with view: 0, seq: 1, payload of 36 bytes, header: MEcCAQETABNAOGEwODhmZjIyZjkwNDAxMDI5MjBhMTk4N2Q1MjkyNDU4NjQxMzFlOTM5YTVkYzE4ZjFjOGJmNmYwMTg5MTU1OA==> from 1 with seq 1
+2023-12-10T20:36:37.270+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"} from 1 with seq 1
+2023-12-10T20:36:37.270+0800	DEBUG	bft/view.go:612	Previous proposal verification sequence: 0, current verification sequence: 0
+2023-12-10T20:36:37.270+0800	DEBUG	bft/view.go:664	Previous proposal verification sequence: 0, current verification sequence: 0
+2023-12-10T20:36:37.270+0800	DEBUG	bft/view.go:1076	Found 0 out of 4 required witnesses for auxiliary data
+2023-12-10T20:36:37.270+0800	DEBUG	bft/util.go:438	view before: 0, current view: 0
+2023-12-10T20:36:37.270+0800	DEBUG	bft/util.go:509	Blacklist empty, nothing to prune
+2023-12-10T20:36:37.272+0800	DEBUG	bft/controller.go:322	9 got message from 5: prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"}
+2023-12-10T20:36:37.273+0800	DEBUG	bft/controller.go:322	9 got message from 4: prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"}
+2023-12-10T20:36:37.274+0800	DEBUG	bft/controller.go:322	9 got message from 7: prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"}
+2023-12-10T20:36:37.274+0800	DEBUG	wal/writeaheadlog.go:479	LogRecord appended successfully: total size=216, recordLength=201, dataCRC=A896862B; file=tmp\native_chain20231210203636\node9\0000000000000001.wal, new-offset=232
+2023-12-10T20:36:37.274+0800	INFO	bft/view.go:424	Processed proposal with seq 1
+2023-12-10T20:36:37.274+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"} from 5 with seq 1
+2023-12-10T20:36:37.274+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"} from 4 with seq 1
+2023-12-10T20:36:37.274+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"} from 7 with seq 1
+2023-12-10T20:36:37.275+0800	DEBUG	bft/controller.go:322	9 got message from 10: prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"}
+2023-12-10T20:36:37.275+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"} from 10 with seq 1
+2023-12-10T20:36:37.275+0800	DEBUG	bft/controller.go:322	9 got message from 2: prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"}
+2023-12-10T20:36:37.275+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"} from 2 with seq 1
+2023-12-10T20:36:37.275+0800	DEBUG	bft/controller.go:322	9 got message from 8: prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"}
+2023-12-10T20:36:37.275+0800	DEBUG	bft/controller.go:322	9 got message from 6: prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"}
+2023-12-10T20:36:37.275+0800	INFO	bft/view.go:462	9 collected 6 prepares from [1 5 4 7 10 2]
+2023-12-10T20:36:37.275+0800	DEBUG	bft/controller.go:322	9 got message from 3: prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"}
+2023-12-10T20:36:37.276+0800	DEBUG	bft/controller.go:322	9 got message from 2: commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:2}}
+2023-12-10T20:36:37.276+0800	DEBUG	bft/controller.go:322	9 got message from 6: commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:6}}
+2023-12-10T20:36:37.277+0800	DEBUG	bft/controller.go:322	9 got message from 7: commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:7}}
+2023-12-10T20:36:37.278+0800	DEBUG	wal/writeaheadlog.go:479	LogRecord appended successfully: total size=88, recordLength=78, dataCRC=9371E2C0; file=tmp\native_chain20231210203636\node9\0000000000000001.wal, new-offset=320
+2023-12-10T20:36:37.278+0800	INFO	bft/view.go:514	Processed prepares for proposal with seq 1
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"} from 8 with seq 1
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"} from 6 with seq 1
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"} from 3 with seq 1
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:2}} from 2 with seq 1
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:6}} from 6 with seq 1
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:7}} from 7 with seq 1
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:322	9 got message from 5: commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:5}}
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:322	9 got message from 8: commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:8}}
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:5}} from 5 with seq 1
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:8}} from 8 with seq 1
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:322	9 got message from 4: commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:4}}
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:4}} from 4 with seq 1
+2023-12-10T20:36:37.278+0800	INFO	bft/view.go:547	9 collected 6 commits from [7 2 6 8 5 4]
+2023-12-10T20:36:37.278+0800	INFO	bft/view.go:334	9 processed commits for proposal with seq 1
+2023-12-10T20:36:37.278+0800	INFO	bft/view.go:851	Deciding on seq 1
+2023-12-10T20:36:37.278+0800	INFO	bft/view.go:870	Sequence: 1-->2
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:529	Delivering to app from Controller decide the last decision proposal
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:322	9 got message from 10: commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:10}}
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:322	9 got message from 1: commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:1}}
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:534	Node 9 delivered proposal
+2023-12-10T20:36:37.278+0800	DEBUG	bft/heartbeatmonitor.go:255	Received heartbeat from 1, last heartbeat was 0s ago
+2023-12-10T20:36:37.278+0800	DEBUG	bft/requestpool.go:374	request {alice tx1} is not in the pool at remove time
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:906	Request {alice tx1} wasn't found in the pool : request {alice tx1} is not in the pool at remove time
+2023-12-10T20:36:37.278+0800	DEBUG	bft/requestpool.go:374	request {alice tx2} is not in the pool at remove time
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:906	Request {alice tx2} wasn't found in the pool : request {alice tx2} is not in the pool at remove time
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:563	view(0) + (decisionsInView(1) / decisionsPerLeader(3)), N(10), blacklist([])
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:754	Got commit for previous sequence (1) from 10, but didn't have a previous commit to send back.
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:754	Got commit for previous sequence (1) from 1, but didn't have a previous commit to send back.
+2023-12-10T20:36:37.278+0800	DEBUG	bft/controller.go:322	9 got message from 3: commit:{seq:1  digest:"a68d00ead8c731ba9f1f20a7673d7a6605642b1fce7f6b2b938383670b4d0191"  signature:{signer:3}}
+2023-12-10T20:36:37.278+0800	DEBUG	bft/view.go:754	Got commit for previous sequence (1) from 3, sent back previous commit.
+2023-12-10T20:36:37.756+0800	DEBUG	bft/heartbeatmonitor.go:393	Last heartbeat from 1 was 0s ago
+2023-12-10T20:36:38.274+0800	DEBUG	bft/controller.go:322	9 got message from 1: <PrePrepare with view: 0, seq: 2, payload of 36 bytes, header: MEcCAQITABNAMGI2YWFmMTA3Nzc3YzUyOWY2MmVhZmNhODU3MjdkNWI1YzgwYmFhMDBlYjQxYWQwNGMxMGVkOGRlOGMyMTMxZg==>
+2023-12-10T20:36:38.274+0800	DEBUG	bft/view.go:221	9 got message <PrePrepare with view: 0, seq: 2, payload of 36 bytes, header: MEcCAQITABNAMGI2YWFmMTA3Nzc3YzUyOWY2MmVhZmNhODU3MjdkNWI1YzgwYmFhMDBlYjQxYWQwNGMxMGVkOGRlOGMyMTMxZg==> from 1 with seq 2
+2023-12-10T20:36:38.274+0800	DEBUG	bft/view.go:612	Previous proposal verification sequence: 0, current verification sequence: 0
+2023-12-10T20:36:38.274+0800	DEBUG	bft/controller.go:322	9 got message from 1: prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"}
+2023-12-10T20:36:38.274+0800	DEBUG	bft/heartbeatmonitor.go:255	Received heartbeat from 1, last heartbeat was 0s ago
+2023-12-10T20:36:38.274+0800	DEBUG	bft/view.go:664	Previous proposal verification sequence: 0, current verification sequence: 0
+2023-12-10T20:36:38.274+0800	DEBUG	bft/heartbeatmonitor.go:255	Received heartbeat from 1, last heartbeat was 0s ago
+2023-12-10T20:36:38.274+0800	DEBUG	bft/view.go:1076	Found 0 out of 4 required witnesses for auxiliary data
+2023-12-10T20:36:38.274+0800	DEBUG	bft/util.go:438	view before: 0, current view: 0
+2023-12-10T20:36:38.274+0800	DEBUG	bft/util.go:509	Blacklist empty, nothing to prune
+2023-12-10T20:36:38.277+0800	DEBUG	bft/controller.go:322	9 got message from 5: prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"}
+2023-12-10T20:36:38.277+0800	DEBUG	bft/controller.go:322	9 got message from 8: prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"}
+2023-12-10T20:36:38.286+0800	DEBUG	bft/controller.go:322	9 got message from 10: prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"}
+2023-12-10T20:36:38.303+0800	DEBUG	wal/writeaheadlog.go:479	LogRecord appended successfully: total size=280, recordLength=267, dataCRC=0C892497; file=tmp\native_chain20231210203636\node9\0000000000000001.wal, new-offset=600
+2023-12-10T20:36:38.304+0800	INFO	bft/view.go:424	Processed proposal with seq 2
+2023-12-10T20:36:38.304+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"} from 1 with seq 2
+2023-12-10T20:36:38.304+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"} from 5 with seq 2
+2023-12-10T20:36:38.304+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"} from 8 with seq 2
+2023-12-10T20:36:38.304+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"} from 10 with seq 2
+2023-12-10T20:36:38.304+0800	DEBUG	bft/controller.go:322	9 got message from 7: prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"}
+2023-12-10T20:36:38.304+0800	DEBUG	bft/controller.go:322	9 got message from 4: prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"}
+2023-12-10T20:36:38.304+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"} from 7 with seq 2
+2023-12-10T20:36:38.304+0800	DEBUG	bft/controller.go:322	9 got message from 6: prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"}
+2023-12-10T20:36:38.304+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"} from 4 with seq 2
+2023-12-10T20:36:38.304+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"} from 6 with seq 2
+2023-12-10T20:36:38.304+0800	INFO	bft/view.go:462	9 collected 6 prepares from [1 5 8 10 7 4]
+2023-12-10T20:36:38.304+0800	DEBUG	bft/controller.go:322	9 got message from 2: prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"}
+2023-12-10T20:36:38.305+0800	DEBUG	bft/controller.go:322	9 got message from 3: prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"}
+2023-12-10T20:36:38.306+0800	DEBUG	bft/controller.go:322	9 got message from 5: commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:5}}
+2023-12-10T20:36:38.306+0800	DEBUG	bft/controller.go:322	9 got message from 1: commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:1}}
+2023-12-10T20:36:38.307+0800	DEBUG	bft/heartbeatmonitor.go:255	Received heartbeat from 1, last heartbeat was 0s ago
+2023-12-10T20:36:38.307+0800	DEBUG	bft/controller.go:322	9 got message from 4: commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:4}}
+2023-12-10T20:36:38.307+0800	DEBUG	bft/controller.go:322	9 got message from 10: commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:10}}
+2023-12-10T20:36:38.307+0800	DEBUG	wal/writeaheadlog.go:479	LogRecord appended successfully: total size=88, recordLength=78, dataCRC=7C04AE60; file=tmp\native_chain20231210203636\node9\0000000000000001.wal, new-offset=688
+2023-12-10T20:36:38.307+0800	INFO	bft/view.go:514	Processed prepares for proposal with seq 2
+2023-12-10T20:36:38.307+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"} from 2 with seq 2
+2023-12-10T20:36:38.307+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"} from 3 with seq 2
+2023-12-10T20:36:38.307+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:5}} from 5 with seq 2
+2023-12-10T20:36:38.307+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:1}} from 1 with seq 2
+2023-12-10T20:36:38.307+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:4}} from 4 with seq 2
+2023-12-10T20:36:38.307+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:10}} from 10 with seq 2
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:322	9 got message from 2: commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:2}}
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:322	9 got message from 8: commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:8}}
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:322	9 got message from 3: commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:3}}
+2023-12-10T20:36:38.308+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:2}} from 2 with seq 2
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:322	9 got message from 7: commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:7}}
+2023-12-10T20:36:38.308+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:8}} from 8 with seq 2
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:322	9 got message from 6: commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:6}}
+2023-12-10T20:36:38.308+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:2  digest:"4d247f3e5dbf3232db1b438da96b365b1c0005e60aa66161d0fb4aa5c1b2f40c"  signature:{signer:3}} from 3 with seq 2
+2023-12-10T20:36:38.308+0800	INFO	bft/view.go:547	9 collected 6 commits from [10 1 5 4 2 8]
+2023-12-10T20:36:38.308+0800	INFO	bft/view.go:334	9 processed commits for proposal with seq 2
+2023-12-10T20:36:38.308+0800	INFO	bft/view.go:851	Deciding on seq 2
+2023-12-10T20:36:38.308+0800	INFO	bft/view.go:870	Sequence: 2-->3
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:529	Delivering to app from Controller decide the last decision proposal
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:534	Node 9 delivered proposal
+2023-12-10T20:36:38.308+0800	DEBUG	bft/requestpool.go:374	request {alice tx3} is not in the pool at remove time
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:906	Request {alice tx3} wasn't found in the pool : request {alice tx3} is not in the pool at remove time
+2023-12-10T20:36:38.308+0800	DEBUG	bft/requestpool.go:374	request {alice tx4} is not in the pool at remove time
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:906	Request {alice tx4} wasn't found in the pool : request {alice tx4} is not in the pool at remove time
+2023-12-10T20:36:38.308+0800	DEBUG	bft/controller.go:563	view(0) + (decisionsInView(2) / decisionsPerLeader(3)), N(10), blacklist([])
+2023-12-10T20:36:38.308+0800	DEBUG	bft/view.go:754	Got commit for previous sequence (2) from 7, sent back previous commit.
+2023-12-10T20:36:38.308+0800	DEBUG	bft/view.go:754	Got commit for previous sequence (2) from 6, sent back previous commit.
+2023-12-10T20:36:38.749+0800	DEBUG	bft/heartbeatmonitor.go:393	Last heartbeat from 1 was 992.7973ms ago
+2023-12-10T20:36:39.281+0800	DEBUG	bft/controller.go:322	9 got message from 1: <PrePrepare with view: 0, seq: 3, payload of 36 bytes, header: MEcCAQMTABNAZmQ0YmU0M2Q2Y2I2MDY2Zjg2NDkzNDIzMzMxZmM1ZTY3ODM1ZmFjYzM5M2RkYTdjMGNiOTEyNzQ1ZmZjNjM3ZA==>
+2023-12-10T20:36:39.281+0800	DEBUG	bft/view.go:221	9 got message <PrePrepare with view: 0, seq: 3, payload of 36 bytes, header: MEcCAQMTABNAZmQ0YmU0M2Q2Y2I2MDY2Zjg2NDkzNDIzMzMxZmM1ZTY3ODM1ZmFjYzM5M2RkYTdjMGNiOTEyNzQ1ZmZjNjM3ZA==> from 1 with seq 3
+2023-12-10T20:36:39.281+0800	DEBUG	bft/view.go:612	Previous proposal verification sequence: 0, current verification sequence: 0
+2023-12-10T20:36:39.281+0800	DEBUG	bft/view.go:664	Previous proposal verification sequence: 0, current verification sequence: 0
+2023-12-10T20:36:39.281+0800	DEBUG	bft/controller.go:322	9 got message from 1: prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"}
+2023-12-10T20:36:39.281+0800	DEBUG	bft/heartbeatmonitor.go:255	Received heartbeat from 1, last heartbeat was 992.7973ms ago
+2023-12-10T20:36:39.281+0800	DEBUG	bft/heartbeatmonitor.go:255	Received heartbeat from 1, last heartbeat was 0s ago
+2023-12-10T20:36:39.281+0800	DEBUG	bft/view.go:1076	Found 0 out of 4 required witnesses for auxiliary data
+2023-12-10T20:36:39.281+0800	DEBUG	bft/util.go:438	view before: 0, current view: 0
+2023-12-10T20:36:39.281+0800	DEBUG	bft/util.go:509	Blacklist empty, nothing to prune
+2023-12-10T20:36:39.283+0800	DEBUG	bft/controller.go:322	9 got message from 8: prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"}
+2023-12-10T20:36:39.284+0800	DEBUG	bft/controller.go:322	9 got message from 10: prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"}
+2023-12-10T20:36:39.284+0800	DEBUG	bft/controller.go:322	9 got message from 5: prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"}
+2023-12-10T20:36:39.284+0800	DEBUG	bft/controller.go:322	9 got message from 4: prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"}
+2023-12-10T20:36:39.284+0800	DEBUG	bft/controller.go:322	9 got message from 6: prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"}
+2023-12-10T20:36:39.284+0800	DEBUG	wal/writeaheadlog.go:479	LogRecord appended successfully: total size=280, recordLength=267, dataCRC=0B33438B; file=tmp\native_chain20231210203636\node9\0000000000000001.wal, new-offset=968
+2023-12-10T20:36:39.284+0800	INFO	bft/view.go:424	Processed proposal with seq 3
+2023-12-10T20:36:39.284+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"} from 1 with seq 3
+2023-12-10T20:36:39.284+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"} from 8 with seq 3
+2023-12-10T20:36:39.284+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"} from 10 with seq 3
+2023-12-10T20:36:39.284+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"} from 5 with seq 3
+2023-12-10T20:36:39.284+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"} from 4 with seq 3
+2023-12-10T20:36:39.284+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"} from 6 with seq 3
+2023-12-10T20:36:39.284+0800	INFO	bft/view.go:462	9 collected 6 prepares from [1 8 10 5 4 6]
+2023-12-10T20:36:39.284+0800	DEBUG	bft/controller.go:322	9 got message from 7: prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"}
+2023-12-10T20:36:39.284+0800	DEBUG	bft/controller.go:322	9 got message from 3: prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"}
+2023-12-10T20:36:39.285+0800	DEBUG	bft/controller.go:322	9 got message from 2: prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"}
+2023-12-10T20:36:39.285+0800	DEBUG	wal/writeaheadlog.go:479	LogRecord appended successfully: total size=88, recordLength=78, dataCRC=05288DDA; file=tmp\native_chain20231210203636\node9\0000000000000001.wal, new-offset=1056
+2023-12-10T20:36:39.285+0800	INFO	bft/view.go:514	Processed prepares for proposal with seq 3
+2023-12-10T20:36:39.285+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"} from 7 with seq 3
+2023-12-10T20:36:39.285+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"} from 3 with seq 3
+2023-12-10T20:36:39.285+0800	DEBUG	bft/view.go:221	9 got message prepare:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"} from 2 with seq 3
+2023-12-10T20:36:39.285+0800	DEBUG	bft/controller.go:322	9 got message from 3: commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:3}}
+2023-12-10T20:36:39.285+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:3}} from 3 with seq 3
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:322	9 got message from 5: commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:5}}
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:322	9 got message from 8: commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:8}}
+2023-12-10T20:36:39.286+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:5}} from 5 with seq 3
+2023-12-10T20:36:39.286+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:8}} from 8 with seq 3
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:322	9 got message from 1: commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:1}}
+2023-12-10T20:36:39.286+0800	DEBUG	bft/heartbeatmonitor.go:255	Received heartbeat from 1, last heartbeat was 0s ago
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:322	9 got message from 4: commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:4}}
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:322	9 got message from 7: commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:7}}
+2023-12-10T20:36:39.286+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:1}} from 1 with seq 3
+2023-12-10T20:36:39.286+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:4}} from 4 with seq 3
+2023-12-10T20:36:39.286+0800	DEBUG	bft/view.go:221	9 got message commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:7}} from 7 with seq 3
+2023-12-10T20:36:39.286+0800	INFO	bft/view.go:547	9 collected 6 commits from [3 8 5 1 7 4]
+2023-12-10T20:36:39.286+0800	INFO	bft/view.go:334	9 processed commits for proposal with seq 3
+2023-12-10T20:36:39.286+0800	INFO	bft/view.go:851	Deciding on seq 3
+2023-12-10T20:36:39.286+0800	INFO	bft/view.go:870	Sequence: 3-->4
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:529	Delivering to app from Controller decide the last decision proposal
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:534	Node 9 delivered proposal
+2023-12-10T20:36:39.286+0800	DEBUG	bft/requestpool.go:374	request {alice tx5} is not in the pool at remove time
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:906	Request {alice tx5} wasn't found in the pool : request {alice tx5} is not in the pool at remove time
+2023-12-10T20:36:39.286+0800	DEBUG	bft/requestpool.go:374	request {alice tx6} is not in the pool at remove time
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:906	Request {alice tx6} wasn't found in the pool : request {alice tx6} is not in the pool at remove time
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:563	view(0) + (decisionsInView(3) / decisionsPerLeader(3)), N(10), blacklist([])
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:322	9 got message from 2: commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:2}}
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:322	9 got message from 6: commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:6}}
+2023-12-10T20:36:39.286+0800	INFO	bft/controller.go:570	Rotating leader from 1 to 2
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:549	Restarting view to rotate the leader
+2023-12-10T20:36:39.286+0800	DEBUG	bft/heartbeatmonitor.go:224	Heartbeat sender is not leader, ignoring; leader: 1, sender: 2
+2023-12-10T20:36:39.286+0800	DEBUG	bft/view.go:754	Got commit for previous sequence (3) from 2, sent back previous commit.
+2023-12-10T20:36:39.286+0800	DEBUG	bft/controller.go:430	view for abort 0, current view 0
+2023-12-10T20:36:39.287+0800	DEBUG	bft/view.go:754	Got commit for previous sequence (3) from 6, sent back previous commit.
+2023-12-10T20:36:39.287+0800	DEBUG	bft/controller.go:442	Aborting current view with number 0
+2023-12-10T20:36:39.287+0800	DEBUG	bft/controller.go:322	9 got message from 10: commit:{seq:3  digest:"5fe7ae887acf8a48fdda38ca650592c546956403e812a5f495d10e8c524cbc64"  signature:{signer:10}}
+2023-12-10T20:36:39.287+0800	DEBUG	bft/controller.go:420	Starting view after setting decisions in view to 3
+2023-12-10T20:36:39.287+0800	INFO	bft/heartbeatmonitor.go:185	Changing to follower role, current view: 0, current leader: 2
+2023-12-10T20:36:39.287+0800	INFO	bft/controller.go:395	Starting view with number 0, sequence 4, and decisions 3
+2023-12-10T20:36:39.287+0800	DEBUG	bft/controller.go:551	Restarting timers in request pool due to leader rotation
+2023-12-10T20:36:39.287+0800	DEBUG	bft/requestpool.go:481	Restarted all timers: size=0
+2023-12-10T20:36:39.750+0800	DEBUG	bft/heartbeatmonitor.go:393	Last heartbeat from 2 was 1.0011464s ago
+2023-12-10T20:36:40.756+0800	DEBUG	bft/heartbeatmonitor.go:393	Last heartbeat from 2 was 2.0070941s ago
+2023-12-10T20:36:41.293+0800	DEBUG	consensus/consensus.go:89	Detected a reconfig in sync
+2023-12-10T20:36:41.293+0800	DEBUG	consensus/consensus.go:187	Starting reconfig
+2023-12-10T20:36:41.294+0800	DEBUG	bft/requestpool.go:459	Stopped all timers: size=0
+2023-12-10T20:36:41.294+0800	INFO	bft/controller.go:493	Exiting
+2023-12-10T20:36:41.294+0800	INFO	consensus/consensus.go:205	Evicted in reconfiguration, shutting down
+2023-12-10T20:36:41.294+0800	INFO	consensus/consensus.go:169	Exiting

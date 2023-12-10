@@ -6,6 +6,7 @@ import (
 	. "github.com/SmartBFT-Go/consensus/examples/naive_chain"
 	"github.com/SmartBFT-Go/consensus/pkg/types"
 	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -36,7 +37,18 @@ func SetupWithClient(c *Configuration) {
 		BatchTimeout: 10 * time.Second,
 	}, configuration.Log.TestDir)
 
-	client := client.NewClient(*c, chains)
+	//初始化logger
+	logFilePath := filepath.Join(c.Log.LogDir, "client.log")
+	loggerBasic, err := NewLogger(logFilePath)
+	if err != nil {
+		panic(err)
+	}
+
+	client := client.NewClient(chains, client.Configuration{
+		BlockCount:   c.Block.Count,
+		RetryTimes:   c.Client.RetryTimes,
+		RetryTimeout: c.Client.RetryTimeout,
+	}, loggerBasic)
 	client.Start()
 
 	go run(client)
@@ -80,6 +92,7 @@ func run(c *client.Client) {
 		}
 
 		time.Sleep(time.Duration(configuration.Block.IntervalTime) * time.Millisecond)
+		blockSeq++
 
 		if blockSeq > configuration.Block.Count {
 			c.Infof("all txs order successfully")

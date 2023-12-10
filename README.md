@@ -26,3 +26,11 @@ sh build.sh
 1. 编写Client输出日志
 2. 编写测试用例
 3. 视图更改阅读
+
+DBFT
+1. version配置更改
+2. join和leave协议
+3. 部分qurom
+4. 被动节点
+5. 
+

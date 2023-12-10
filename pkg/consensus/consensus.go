@@ -521,6 +521,6 @@ func (c *Consensus) startComponents(view, seq, dec uint64, configSync bool) {
 	}
 }
 
-func (c *Consensus) GetConfig() (q int, f int, quorum []uint64, nodes []uint64) {
-	return c.viewChanger.GetConfig()
+func (c *Consensus) GetVersion() types.Version {
+	return c.viewChanger.GetVersion()
 }

@@ -1355,6 +1355,13 @@ func (v *ViewChanger) blacklist() []uint64 {
 	return md.BlackList
 }
 
-func (v *ViewChanger) GetConfig() (q int, f int, quorum []uint64, nodes []uint64) {
-	return v.quorum, v.f, v.NodesList, v.NodesList
+func (v *ViewChanger) GetVersion() types.Version {
+	return types.Version{
+		Q:        v.quorum,
+		F:        v.f,
+		N:        int(v.N),
+		LeaderID: v.getLeader(),
+		Quorum:   v.NodesList,
+		Nodes:    v.NodesList,
+	}
 }

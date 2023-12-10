@@ -102,10 +102,10 @@ func (chain *Chain) Stop() {
 	chain.node.Stop()
 }
 
-func (chain *Chain) ObtainConfig() (q int, f int, quorum []uint64, nodes []uint64) {
-	return chain.node.consensus.GetConfig()
+func (chain *Chain) ObtainVersion() types.Version {
+	return chain.node.consensus.GetVersion()
 }
 
-func (chain *Chain) Reconfig(reconfig types.Reconfig) {
+func (chain *Chain) ReVersion(reconfig types.Reconfig) {
 	chain.node.Reconfig(reconfig)
 }

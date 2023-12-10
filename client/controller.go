@@ -2,9 +2,7 @@ package client
 
 import (
 	"fmt"
-	. "github.com/SmartBFT-Go/consensus/examples/naive_chain"
 	"github.com/SmartBFT-Go/consensus/pkg/types"
-	"strconv"
 )
 
 type Message struct {
@@ -29,15 +27,15 @@ func (c *Client) run() {
 				select {
 				case <-c.stopChanMap[id]:
 					//todo:无法全部关闭
-					c.Infof(fmt.Sprintf("Client stop listening on node %d", id))
+					c.Infof(fmt.Sprintf("Client stop listening on node%d", id))
 					return
 				case block := <-c.deliverChanMap[id]:
-					c.HandleBlock(*block)
+					c.HandleBlock(*block, id)
 				}
 			}
 		}(id, c)
 
-		c.logger.Infof("Client start listening on node %d", id)
+		c.logger.Infof("Client start listening on node%d", id)
 	}
 
 	//消息监听
@@ -61,38 +59,10 @@ func (c *Client) HandleMessage(msg Message) {
 	case REQUSET:
 		c.request(msg.Content.(int))
 	case ObtainConfig:
-		c.obtainConfig()
+		c.obtainVersion()
 	case RECONFIG:
-		c.reconfig(msg.Content.(types.Reconfig))
+		c.reVersion(msg.Content.(types.Reconfig))
 	default:
 		c.logger.Errorf("msgType error")
 	}
-}
-
-func (c *Client) HandleBlock(block Block) {
-	c.lock.Lock()
-	defer c.lock.Unlock()
-
-	c.logger.Infof("block gotten:%s", ObjToJson(block))
-
-	//处理区块
-	for _, transaction := range block.Transactions {
-		txID, err := strconv.Atoi(transaction.ID[2:])
-		if err != nil {
-			c.logger.Errorf("txID convert failed and err: %v", err)
-			continue
-		}
-
-		c.collector[txID] = c.collector[txID] + 1
-		if c.collector[txID] >= c.q {
-			c.doneTX[txID] = struct{}{}
-			c.Infof(fmt.Sprintf("tx%d committed successfully", txID))
-		}
-	}
-
-	if len(c.doneTX) == c.configuration.Block.Count {
-		c.Infof(fmt.Sprintf("all txs committed successfully"))
-		c.Close()
-	}
-	return
 }

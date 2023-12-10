@@ -2,30 +2,28 @@ package client
 
 import (
 	"fmt"
-	"github.com/SmartBFT-Go/consensus/benchmark"
 	. "github.com/SmartBFT-Go/consensus/examples/naive_chain"
 	smart "github.com/SmartBFT-Go/consensus/pkg/api"
-	"path/filepath"
+	"github.com/SmartBFT-Go/consensus/pkg/types"
 	"sync"
 )
 
 type Client struct {
-	q      int
-	f      int      //容错个数
-	N      int      //节点个数
-	quorum []uint64 //投票节点
-	nodes  []uint64 //所有节点
+	N int //全部节点个数
 
 	logger        smart.Logger
-	configuration benchmark.Configuration
+	configuration Configuration
 
-	blockSeq  int              //区块序号
-	collector map[int]int      //收集到的交易
-	doneTX    map[int]struct{} //已经提交的交易
-	chains    map[int]*Chain   //区块链网络
+	blockSeq       int                         //区块序号
+	collector      map[int]map[uint64]struct{} //收集到的交易回复 collector[blockSeq][nodeID]
+	versionMap     map[int]types.Version       //发送交易的版本号 versionMap[blockSeq]
+	versionMapLock sync.Mutex
 
-	deliverChanMap map[int]<-chan *Block //每个节点的接收通道
-	stopChanMap    map[int]chan struct{} //每个节点的停止通道
+	doneTX map[int]struct{} //已经提交的交易	doneTX[blockSeq]
+	chains map[int]*Chain   //区块链网络	chains[nodeID]
+
+	deliverChanMap map[int]<-chan *Block //每个节点的接收通道	 deliverChanMap[nodeID]
+	stopChanMap    map[int]chan struct{} //每个节点的停止通道	 stopChanMap[nodeID]
 	MsgChan        chan Message          //消息通道
 	closeChan      chan struct{}
 
@@ -35,14 +33,13 @@ type Client struct {
 	doneWG sync.WaitGroup
 }
 
-func NewClient(c benchmark.Configuration, chains map[int]*Chain) *Client {
+type Configuration struct {
+	BlockCount   int
+	RetryTimes   int
+	RetryTimeout int
+}
 
-	//初始化logger
-	logFilePath := filepath.Join(c.Log.LogDir, "client.log")
-	loggerBasic, err := benchmark.NewLogger(logFilePath)
-	if err != nil {
-		panic(err)
-	}
+func NewClient(chains map[int]*Chain, configuration Configuration, logger smart.Logger) *Client {
 
 	N := len(chains)
 	deliverChanMap := make(map[int]<-chan *Block, N)
@@ -53,10 +50,12 @@ func NewClient(c benchmark.Configuration, chains map[int]*Chain) *Client {
 		stopChanMap[id] = make(chan struct{}, 1)
 	}
 
+	//初始化client，建立全部节点的通道
 	client := &Client{
+		N:              N,
 		chains:         chains,
-		logger:         loggerBasic,
-		configuration:  c,
+		logger:         logger,
+		configuration:  configuration,
 		stopChanMap:    stopChanMap,
 		deliverChanMap: deliverChanMap,
 	}
@@ -65,21 +64,21 @@ func NewClient(c benchmark.Configuration, chains map[int]*Chain) *Client {
 }
 
 func (c *Client) Start() {
-	//节点配置
-	c.obtainConfig()
 
 	//区块配置
-	collector := make(map[int]int, c.N)
-	for id := 1; id <= c.N; id++ {
-		collector[id] = 0
+	count := c.configuration.BlockCount
+	collector := make(map[int]map[uint64]struct{}, count)
+	for id := 1; id <= count; id++ {
+		collector[id] = make(map[uint64]struct{}, c.N)
 	}
 	c.blockSeq = 1
-	c.doneTX = make(map[int]struct{}, c.N+1)
 	c.collector = collector
+	c.versionMap = make(map[int]types.Version, count)
+	c.doneTX = make(map[int]struct{}, count)
 
 	//channel配置
 	c.MsgChan = make(chan Message)
-	c.closeChan = make(chan struct{}, c.N)
+	c.closeChan = make(chan struct{}, count)
 
 	c.stopOnce = sync.Once{}
 
