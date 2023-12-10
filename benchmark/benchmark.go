@@ -97,7 +97,7 @@ func run(c *client.Client) {
 		if blockSeq > configuration.Block.Count {
 			c.Infof("all txs order successfully")
 
-			time.Sleep(5 * time.Second)
+			time.Sleep(10 * time.Second)
 			c.Close()
 			return
 		}

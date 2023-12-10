@@ -1363,5 +1363,6 @@ func (v *ViewChanger) GetVersion() types.Version {
 		LeaderID: v.getLeader(),
 		Quorum:   v.NodesList,
 		Nodes:    v.NodesList,
+		Type:     types.NORMAL,
 	}
 }

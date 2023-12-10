@@ -128,4 +128,36 @@ type Version struct {
 	LeaderID uint64   //领导者id
 	Quorum   []uint64 //投票节点
 	Nodes    []uint64 //所有节点
+
+	Type int //视图类型
+}
+
+const (
+	OPTIMISTIC = iota
+	NORMAL
+)
+
+// EqualVersions 比较两个 Version 是否相等
+func EqualVersions(v1, v2 Version) bool {
+	// 逐一比较结构体字段
+	return v1.Q == v2.Q &&
+		v1.F == v2.F &&
+		v1.N == v2.N &&
+		v1.LeaderID == v2.LeaderID &&
+		equalSlices(v1.Quorum, v2.Quorum) &&
+		equalSlices(v1.Nodes, v2.Nodes) &&
+		v1.Type == v2.Type
+}
+
+// equalUint64Slices 比较两个 uint64 切片是否相等
+func equalSlices(slice1, slice2 []uint64) bool {
+	if len(slice1) != len(slice2) {
+		return false
+	}
+	for i, v := range slice1 {
+		if v != slice2[i] {
+			return false
+		}
+	}
+	return true
 }

@@ -2,7 +2,7 @@ Server:
   Num: 10
   BatchSize: 2
 Client:
-  RetryTimeout: 2000 #milliseconds
+  RetryTimeout: 3000 #milliseconds
   RetryTimes: 3
 Block:
   Count: 20

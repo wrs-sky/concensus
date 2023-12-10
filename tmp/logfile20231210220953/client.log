@@ -1,0 +1,232 @@
+2023-12-10T22:09:53.613+0800	INFO	client/controller.go:38	Client start listening on node1
+2023-12-10T22:09:53.613+0800	INFO	client/controller.go:38	Client start listening on node2
+2023-12-10T22:09:53.613+0800	INFO	client/controller.go:38	Client start listening on node3
+2023-12-10T22:09:53.613+0800	INFO	client/controller.go:38	Client start listening on node4
+2023-12-10T22:09:53.613+0800	INFO	client/controller.go:38	Client start listening on node5
+2023-12-10T22:09:53.613+0800	INFO	client/controller.go:38	Client start listening on node6
+2023-12-10T22:09:53.613+0800	INFO	client/controller.go:38	Client start listening on node7
+2023-12-10T22:09:53.614+0800	INFO	client/controller.go:38	Client start listening on node8
+2023-12-10T22:09:53.614+0800	INFO	client/controller.go:38	Client start listening on node9
+2023-12-10T22:09:53.614+0800	INFO	client/controller.go:38	Client start listening on node10
+2023-12-10T22:09:53.614+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:09:53.614+0800	INFO	client/client.go:114	tx1 send to node1
+2023-12-10T22:09:54.128+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:09:54.128+0800	INFO	client/client.go:114	tx2 send to node1
+2023-12-10T22:09:54.172+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.172+0800	INFO	client/request.go:65	block gotten from node10:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.172+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.172+0800	INFO	client/request.go:65	block gotten from node7:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.172+0800	INFO	client/request.go:65	block gotten from node8:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.172+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.172+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.172+0800	INFO	client/client.go:114	tx1 committed successfully
+2023-12-10T22:09:54.172+0800	INFO	client/client.go:114	tx2 committed successfully
+2023-12-10T22:09:54.172+0800	INFO	client/request.go:65	block gotten from node6:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.172+0800	INFO	client/request.go:65	block gotten from node9:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.174+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":1,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx1"},{"ClientID":"alice","ID":"tx2"}]} 
+2023-12-10T22:09:54.642+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:09:54.642+0800	INFO	client/client.go:114	tx3 send to node1
+2023-12-10T22:09:55.149+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:09:55.149+0800	INFO	client/client.go:114	tx4 send to node1
+2023-12-10T22:09:55.157+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.157+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.157+0800	INFO	client/request.go:65	block gotten from node6:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.157+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.157+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.157+0800	INFO	client/request.go:65	block gotten from node9:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.157+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.157+0800	INFO	client/client.go:114	tx3 committed successfully
+2023-12-10T22:09:55.158+0800	INFO	client/client.go:114	tx4 committed successfully
+2023-12-10T22:09:55.158+0800	INFO	client/request.go:65	block gotten from node10:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.158+0800	INFO	client/request.go:65	block gotten from node8:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.158+0800	INFO	client/request.go:65	block gotten from node7:{"Sequence":2,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx3"},{"ClientID":"alice","ID":"tx4"}]} 
+2023-12-10T22:09:55.654+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:09:55.654+0800	INFO	client/client.go:114	tx5 send to node1
+2023-12-10T22:09:56.163+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:09:56.163+0800	INFO	client/client.go:114	tx6 send to node1
+2023-12-10T22:09:56.206+0800	INFO	client/request.go:65	block gotten from node6:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.206+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.206+0800	INFO	client/request.go:65	block gotten from node9:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.206+0800	INFO	client/request.go:65	block gotten from node10:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.206+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.206+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.206+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.206+0800	INFO	client/client.go:114	tx5 committed successfully
+2023-12-10T22:09:56.206+0800	INFO	client/client.go:114	tx6 committed successfully
+2023-12-10T22:09:56.206+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.207+0800	INFO	client/request.go:65	block gotten from node7:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.207+0800	INFO	client/request.go:65	block gotten from node8:{"Sequence":3,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx5"},{"ClientID":"alice","ID":"tx6"}]} 
+2023-12-10T22:09:56.668+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:09:56.668+0800	INFO	client/client.go:114	tx7 send to node1
+2023-12-10T22:09:57.176+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:09:57.176+0800	INFO	client/client.go:114	tx8 send to node1
+2023-12-10T22:09:57.683+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:09:57.683+0800	INFO	client/client.go:114	tx9 send to node1
+2023-12-10T22:09:58.191+0800	INFO	client/client.go:114	reconfig start,new nodes:[1 2 3 4 5]
+2023-12-10T22:09:59.672+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:09:59.673+0800	ERROR	client/request.go:53	tx7 order failed and err: request already exists
+github.com/SmartBFT-Go/consensus/client.(*Client).send
+	D:/Projects/Go/consensus/client/request.go:53
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:20
+2023-12-10T22:10:00.177+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:00.177+0800	ERROR	client/request.go:53	tx8 order failed and err: request already exists
+github.com/SmartBFT-Go/consensus/client.(*Client).send
+	D:/Projects/Go/consensus/client/request.go:53
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:20
+2023-12-10T22:10:00.193+0800	INFO	client/client.go:114	ReVersion: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:00.193+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:00.193+0800	INFO	client/client.go:114	tx10 send to node1
+2023-12-10T22:10:00.224+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":4,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx7"},{"ClientID":"alice","ID":"tx8"},{"ClientID":"alice","ID":"tx9"}]} 
+2023-12-10T22:10:00.224+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":4,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx7"},{"ClientID":"alice","ID":"tx8"},{"ClientID":"alice","ID":"tx9"}]} 
+2023-12-10T22:10:00.224+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":4,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx7"},{"ClientID":"alice","ID":"tx8"},{"ClientID":"alice","ID":"tx9"}]} 
+2023-12-10T22:10:00.224+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":4,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx7"},{"ClientID":"alice","ID":"tx8"},{"ClientID":"alice","ID":"tx9"}]} 
+2023-12-10T22:10:00.224+0800	INFO	client/client.go:114	tx7 committed successfully
+2023-12-10T22:10:00.224+0800	INFO	client/client.go:114	tx8 committed successfully
+2023-12-10T22:10:00.224+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":4,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx7"},{"ClientID":"alice","ID":"tx8"},{"ClientID":"alice","ID":"tx9"}]} 
+2023-12-10T22:10:00.684+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:10:00.700+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:00.700+0800	INFO	client/client.go:114	tx11 send to node1
+2023-12-10T22:10:01.208+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:01.208+0800	INFO	client/client.go:114	tx12 send to node1
+2023-12-10T22:10:01.715+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:10:02.222+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:02.222+0800	INFO	client/client.go:114	tx14 send to node1
+2023-12-10T22:10:02.296+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":5,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx10"}]} 
+2023-12-10T22:10:02.296+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":5,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx10"}]} 
+2023-12-10T22:10:02.296+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":5,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx10"}]} 
+2023-12-10T22:10:02.296+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":5,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx10"}]} 
+2023-12-10T22:10:02.296+0800	INFO	client/client.go:114	tx10 committed successfully
+2023-12-10T22:10:02.296+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":5,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx10"}]} 
+2023-12-10T22:10:02.679+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:02.679+0800	ERROR	client/request.go:53	tx7 order failed and err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).send
+	D:/Projects/Go/consensus/client/request.go:53
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:20
+2023-12-10T22:10:02.727+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:02.727+0800	INFO	client/client.go:114	tx15 send to node1
+2023-12-10T22:10:02.762+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":6,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx11"}]} 
+2023-12-10T22:10:02.762+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":6,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx11"}]} 
+2023-12-10T22:10:02.762+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":6,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx11"}]} 
+2023-12-10T22:10:02.762+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":6,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx11"}]} 
+2023-12-10T22:10:02.762+0800	INFO	client/client.go:114	tx11 committed successfully
+2023-12-10T22:10:02.762+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":6,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx11"}]} 
+2023-12-10T22:10:03.183+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:03.183+0800	ERROR	client/request.go:53	tx8 order failed and err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).send
+	D:/Projects/Go/consensus/client/request.go:53
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:20
+2023-12-10T22:10:03.230+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:10:03.685+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:03.685+0800	ERROR	client/request.go:53	tx9 order failed and err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).send
+	D:/Projects/Go/consensus/client/request.go:53
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:20
+2023-12-10T22:10:03.732+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:03.732+0800	INFO	client/client.go:114	tx17 send to node1
+2023-12-10T22:10:04.222+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:10:04.237+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:04.237+0800	INFO	client/client.go:114	tx18 send to node1
+2023-12-10T22:10:04.729+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:04.729+0800	INFO	client/client.go:114	tx13 send to node1
+2023-12-10T22:10:04.745+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:04.745+0800	INFO	client/client.go:114	tx19 send to node1
+2023-12-10T22:10:04.878+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":7,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx14"},{"ClientID":"alice","ID":"tx12"},{"ClientID":"alice","ID":"tx15"}]} 
+2023-12-10T22:10:04.878+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":7,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx14"},{"ClientID":"alice","ID":"tx12"},{"ClientID":"alice","ID":"tx15"}]} 
+2023-12-10T22:10:04.878+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":7,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx14"},{"ClientID":"alice","ID":"tx12"},{"ClientID":"alice","ID":"tx15"}]} 
+2023-12-10T22:10:04.878+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":7,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx14"},{"ClientID":"alice","ID":"tx12"},{"ClientID":"alice","ID":"tx15"}]} 
+2023-12-10T22:10:04.878+0800	INFO	client/client.go:114	tx14 committed successfully
+2023-12-10T22:10:04.878+0800	INFO	client/client.go:114	tx12 committed successfully
+2023-12-10T22:10:04.878+0800	INFO	client/client.go:114	tx15 committed successfully
+2023-12-10T22:10:04.878+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":7,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx14"},{"ClientID":"alice","ID":"tx12"},{"ClientID":"alice","ID":"tx15"}]} 
+2023-12-10T22:10:05.247+0800	INFO	client/client.go:114	Version: q=7, f=3, N=10, quorum=[1 2 3 4 5 6 7 8 9 10], nodes=[1 2 3 4 5 6 7 8 9 10]
+2023-12-10T22:10:05.688+0800	ERROR	client/request.go:31	tx7 failed,err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:31
+2023-12-10T22:10:05.751+0800	INFO	client/client.go:114	all txs order successfully
+2023-12-10T22:10:05.779+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":8,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx17"}]} 
+2023-12-10T22:10:05.779+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":8,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx17"}]} 
+2023-12-10T22:10:05.779+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":8,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx17"}]} 
+2023-12-10T22:10:05.779+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":8,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx17"}]} 
+2023-12-10T22:10:05.779+0800	INFO	client/client.go:114	tx17 committed successfully
+2023-12-10T22:10:05.779+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":8,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx17"}]} 
+2023-12-10T22:10:06.189+0800	ERROR	client/request.go:31	tx8 failed,err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:31
+2023-12-10T22:10:06.236+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:06.236+0800	INFO	client/client.go:114	tx16 send to node1
+2023-12-10T22:10:06.300+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":9,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx18"}]} 
+2023-12-10T22:10:06.300+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":9,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx18"}]} 
+2023-12-10T22:10:06.300+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":9,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx18"}]} 
+2023-12-10T22:10:06.300+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":9,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx18"}]} 
+2023-12-10T22:10:06.300+0800	INFO	client/client.go:114	tx18 committed successfully
+2023-12-10T22:10:06.300+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":9,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx18"}]} 
+2023-12-10T22:10:06.692+0800	ERROR	client/request.go:31	tx9 failed,err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:31
+2023-12-10T22:10:07.232+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:07.232+0800	ERROR	client/request.go:53	tx12 order failed and err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).send
+	D:/Projects/Go/consensus/client/request.go:53
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:20
+2023-12-10T22:10:07.737+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:07.737+0800	ERROR	client/request.go:53	tx13 order failed and err: request already exists
+github.com/SmartBFT-Go/consensus/client.(*Client).send
+	D:/Projects/Go/consensus/client/request.go:53
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:20
+2023-12-10T22:10:07.752+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:07.752+0800	ERROR	client/request.go:53	tx19 order failed and err: request already exists
+github.com/SmartBFT-Go/consensus/client.(*Client).send
+	D:/Projects/Go/consensus/client/request.go:53
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:20
+2023-12-10T22:10:08.258+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:08.258+0800	INFO	client/client.go:114	tx20 send to node1
+2023-12-10T22:10:08.353+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":10,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx19"},{"ClientID":"alice","ID":"tx16"},{"ClientID":"alice","ID":"tx13"}]} 
+2023-12-10T22:10:08.353+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":10,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx19"},{"ClientID":"alice","ID":"tx16"},{"ClientID":"alice","ID":"tx13"}]} 
+2023-12-10T22:10:08.353+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":10,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx19"},{"ClientID":"alice","ID":"tx16"},{"ClientID":"alice","ID":"tx13"}]} 
+2023-12-10T22:10:08.353+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":10,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx19"},{"ClientID":"alice","ID":"tx16"},{"ClientID":"alice","ID":"tx13"}]} 
+2023-12-10T22:10:08.353+0800	INFO	client/client.go:114	tx19 committed successfully
+2023-12-10T22:10:08.353+0800	INFO	client/client.go:114	tx16 committed successfully
+2023-12-10T22:10:08.353+0800	INFO	client/client.go:114	tx13 committed successfully
+2023-12-10T22:10:08.353+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":10,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx19"},{"ClientID":"alice","ID":"tx16"},{"ClientID":"alice","ID":"tx13"}]} 
+2023-12-10T22:10:10.236+0800	ERROR	client/request.go:31	tx12 failed,err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:31
+2023-12-10T22:10:10.318+0800	INFO	client/request.go:65	block gotten from node2:{"Sequence":11,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx20"}]} 
+2023-12-10T22:10:10.318+0800	INFO	client/request.go:65	block gotten from node1:{"Sequence":11,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx20"}]} 
+2023-12-10T22:10:10.318+0800	INFO	client/request.go:65	block gotten from node5:{"Sequence":11,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx20"}]} 
+2023-12-10T22:10:10.318+0800	INFO	client/request.go:65	block gotten from node3:{"Sequence":11,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx20"}]} 
+2023-12-10T22:10:10.318+0800	INFO	client/client.go:114	tx20 committed successfully
+2023-12-10T22:10:10.318+0800	INFO	client/request.go:65	block gotten from node4:{"Sequence":11,"PrevHash":"","Transactions":[{"ClientID":"alice","ID":"tx20"}]} 
+2023-12-10T22:10:10.741+0800	ERROR	client/request.go:31	tx13 failed,err: request already exists
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:31
+2023-12-10T22:10:10.756+0800	INFO	client/client.go:114	Version: q=4, f=1, N=5, quorum=[1 2 3 4 5], nodes=[1 2 3 4 5]
+2023-12-10T22:10:10.756+0800	ERROR	client/request.go:53	tx19 order failed and err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).send
+	D:/Projects/Go/consensus/client/request.go:53
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:20
+2023-12-10T22:10:13.761+0800	ERROR	client/request.go:31	tx19 failed,err: request already processed
+github.com/SmartBFT-Go/consensus/client.(*Client).request.func1
+	D:/Projects/Go/consensus/client/request.go:31
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client is closing
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client closed channel
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node7
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node2
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node8
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node6
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node1
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node10
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node5
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node4
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node9
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop listening on node3
+2023-12-10T22:10:15.765+0800	INFO	client/client.go:114	Client stop message listening

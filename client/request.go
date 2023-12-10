@@ -16,21 +16,13 @@ func (c *Client) request(blockSeq int) {
 		var err = fmt.Errorf("times out")
 		//重试3次
 		for i := 0; i < c.configuration.RetryTimes; i++ {
-			var version types.Version
-			version, err = c.obtainVersion()
+
+			err = c.send(blockSeq)
+			time.Sleep(time.Duration(c.configuration.RetryTimeout) * time.Millisecond)
+
 			if err != nil {
 				continue
 			}
-
-			c.versionMapLock.Lock()
-			c.versionMap[blockSeq] = version
-			c.versionMapLock.Unlock()
-
-			if err = c.send(version.LeaderID, blockSeq); err != nil {
-				continue
-			}
-			time.Sleep(time.Duration(c.configuration.RetryTimeout) * time.Millisecond)
-
 			//完成交易被down，则推出
 			if _, ok := c.doneTX[blockSeq]; ok {
 				return
@@ -42,9 +34,18 @@ func (c *Client) request(blockSeq int) {
 }
 
 // send 发送交易
-func (c *Client) send(leaderID uint64, blockSeq int) error {
+func (c *Client) send(blockSeq int) error {
+	version, err := c.obtainVersion()
+	if err != nil {
+		return err
+	}
 
-	err := c.chains[int(leaderID)].Order(Transaction{
+	c.versionMapLock.Lock()
+	c.versionMap[blockSeq] = version
+	c.versionMapLock.Unlock()
+
+	leaderID := version.LeaderID
+	err = c.chains[int(leaderID)].Order(Transaction{
 		ClientID: "alice",
 		ID:       fmt.Sprintf("tx%d", blockSeq),
 	})
@@ -92,5 +93,9 @@ func (c *Client) HandleBlock(block Block, id int) {
 }
 
 func canBlockBeSubmitted(collector map[uint64]struct{}, version types.Version) bool {
+	if version.Type == types.OPTIMISTIC {
+		//todo 乐观协议
+		return false
+	}
 	return len(collector) >= version.Q
 }
